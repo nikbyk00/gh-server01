@@ -1,2 +1,4 @@
-package com.example.ghserver01.app.controller;public class UserController {
+package com.example.ghserver01.app.controller;
+
+public class UserController {
 }
