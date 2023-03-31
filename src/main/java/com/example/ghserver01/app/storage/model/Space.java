@@ -16,9 +16,9 @@ public class Space {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
-    private String userId;
+    private Integer userId;
 
-    public Space (String name, String userId){
+    public Space (String name, Integer userId){
         this.name = name;
         this.userId = userId;
     }

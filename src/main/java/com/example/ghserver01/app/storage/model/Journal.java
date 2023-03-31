@@ -14,15 +14,19 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Room {
+public class Journal {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private String name;
+    private String time;
+    private String date;
     private String spaceId;
+    private String event;
 
-    public Room (String name, String spaceId) {
-        this.name = name;
+    public Journal (String time, String date, String spaceId, String event) {
+        this.time = time;
+        this.date = date;
         this.spaceId = spaceId;
+        this.event = event;
     }
 }

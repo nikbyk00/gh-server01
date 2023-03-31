@@ -14,15 +14,14 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Room {
+public class Calendar {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private String name;
-    private String spaceId;
+    private String date;
+    private String maturationDate;
+    private String eventName;
+    private String event;
+    private String greenHouseId;
 
-    public Room (String name, String spaceId) {
-        this.name = name;
-        this.spaceId = spaceId;
-    }
 }
