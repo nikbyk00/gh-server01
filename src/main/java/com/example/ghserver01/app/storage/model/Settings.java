@@ -25,15 +25,5 @@ public class Settings {
     private String conflicts;
     private String reminder;
     private boolean reminderMaturationDay;
-    public Settings (String userId, String lang, String topic, String disablingSensor,
-                    String conflicts, String reminder, boolean reminderMaturationDay) {
-        this.userId = userId;
-        this.lang = lang;
-        this.topic = topic;
-        this.disablingSensor = disablingSensor;
-        this.conflicts = conflicts;
-        this.reminder = reminder;
-        this.reminderMaturationDay = reminderMaturationDay;
-    }
 
 }

@@ -30,20 +30,5 @@ public class GreenHouse {
     private String washingInterval;
     private String ph;
 
-    public GreenHouse (String name, String roomId, String additionalTemperature, String temperature,
-                       String ec, String co2, String illuminance,
-                       String liquidLevel, Boolean ventilation, String washingInterval, String ph) {
-        this.name = name;
-        this.roomId = roomId;
-        this.additionalTemperature = additionalTemperature;
-        this.temperature = temperature;
-        this.ec = ec;
-        this.co2 = co2;
-        this.illuminance = illuminance;
-        this.liquidLevel = liquidLevel;
-        this.ventilation = ventilation;
-        this.washingInterval = washingInterval;
-        this.ph = ph;
-    }
 }
 

@@ -21,8 +21,4 @@ public class Room {
     private String name;
     private String spaceId;
 
-    public Room (String name, String spaceId) {
-        this.name = name;
-        this.spaceId = spaceId;
-    }
 }

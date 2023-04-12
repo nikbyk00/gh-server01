@@ -12,13 +12,8 @@ import java.util.Optional;
 public class GreenHouseService {
     GreenHouseRepo greenHouseRepo;
     public Integer createGreenHouse (GreenHouse greenHouse) {
-        GreenHouse greenHouseSave = new GreenHouse(greenHouse.getName(), greenHouse.getRoomId(),
-                greenHouse.getAdditionalTemperature(), greenHouse.getTemperature(), greenHouse.getEc(),
-                greenHouse.getCo2(), greenHouse.getIlluminance(), greenHouse.getLiquidLevel(),
-                greenHouse.getVentilation(), greenHouse.getWashingInterval(), greenHouse.getPh());
-
-        greenHouseRepo.save(greenHouseSave);
-        return greenHouseSave.getId();
+        greenHouseRepo.save(greenHouse);
+        return greenHouse.getId();
     }
     public Optional<GreenHouse> getGreenHouseService (Integer id) {
         Optional<GreenHouse> greenHouse = greenHouseRepo.findById(id);

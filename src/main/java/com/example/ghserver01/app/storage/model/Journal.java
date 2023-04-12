@@ -23,10 +23,4 @@ public class Journal {
     private String spaceId;
     private String event;
 
-    public Journal (String time, String date, String spaceId, String event) {
-        this.time = time;
-        this.date = date;
-        this.spaceId = spaceId;
-        this.event = event;
-    }
 }

@@ -18,9 +18,4 @@ public class Space {
     private String name;
     private Integer userId;
 
-    public Space (String name, Integer userId){
-        this.name = name;
-        this.userId = userId;
-    }
-
 }

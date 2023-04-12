@@ -1,20 +1,40 @@
 package com.example.ghserver01.app.util;
 
+import com.example.ghserver01.app.util.Helper.Common;
 import com.example.ghserver01.app.util.Value.Constants;
-import lombok.AllArgsConstructor;
-import org.springframework.mail.MailSender;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.MailSendException;
 import org.springframework.mail.SimpleMailMessage;
-@AllArgsConstructor
-public class Mailer {
-    private final SimpleMailMessage simpleMail = new SimpleMailMessage();
-    private Constants constants;
-    private MailSender mailSender;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
 
-    public void sendMail (String mail, String text) {
-        simpleMail.setFrom(Constants.MAIL);
-        simpleMail.setTo(mail);
-        simpleMail.setSubject("code");
-        simpleMail.setText(text);
-        this.mailSender.send(simpleMail);
+import java.util.Map;
+@Service
+public class Mailer {
+    @Autowired
+    private JavaMailSender mailSender;
+    @Autowired
+    private Common common;
+    @Value("${spring.mail.username}")
+    private String username;
+
+
+    public void sendMail (String mail, String code) {
+
+        SimpleMailMessage simpleMail = new SimpleMailMessage();
+
+        try {
+            simpleMail.setFrom(username);
+            simpleMail.setTo(mail);
+            simpleMail.setSubject(Constants.SUBJECT);
+            simpleMail.setText(code);
+
+            mailSender.send(simpleMail);
+
+        } catch (MailSendException exc) {
+            Map<Object, Exception> exceptionsByMails = exc.getFailedMessages();
+        }
+
     }
 }

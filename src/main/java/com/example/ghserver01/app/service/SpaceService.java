@@ -13,12 +13,10 @@ import java.util.Optional;
 @AllArgsConstructor
 public class SpaceService {
     private SpaceRepo spaceRepo;
-    private UserRepo userRepo;
+    //private UserRepo userRepo;
     public Integer createSpaceService(Space space) {
-        Space spaceSave = new Space(space.getName(), space.getUserId());
-        spaceRepo.save(spaceSave);
-        updateUserSpaceId( userRepo.findById(space.getUserId()).get(), spaceSave.getId() );
-        return spaceSave.getId();
+        spaceRepo.save(space);
+        return space.getId();
     }
 
     public void updateUserSpaceId (User user, Integer spaceId) {

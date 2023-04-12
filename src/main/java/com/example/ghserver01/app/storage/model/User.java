@@ -2,11 +2,6 @@ package com.example.ghserver01.app.storage.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.Collection;
-import java.util.Set;
 
 @Entity
 @Data
@@ -14,59 +9,17 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class User implements UserDetails {
+public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private String name;
-    private String login;
+    private String username;
     private String password;
     private String email;
-    private String role;
     private Integer spaceId;
-    private String code;
-    private String type;
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Role> roles;
-    public User (String name, String login, String password,
-                 String email, String role, Integer spaceId, String code, String type) {
-        this.name = name;
-        this.login = login;
-        this.password = password;
-        this.email = email;
-        this.role = role;
-        this.code = code;
-        this.spaceId = spaceId;
-        this.type = type;
-    }
+    private String activationCode;
+    private boolean activate = false;
+    private String topic = "white";
+    private String lang = "Russian";
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
-    @Override
-    public String getUsername() {
-        return name;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 }

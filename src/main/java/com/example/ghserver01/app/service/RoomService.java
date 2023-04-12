@@ -12,9 +12,8 @@ import java.util.Optional;
 public class RoomService {
     RoomRepo roomRepo;
     public Integer createRoomService (Room room){
-        Room roomSave = new Room(room.getName(), room.getSpaceId());
-        roomRepo.save(roomSave);
-        return roomSave.getId();
+        roomRepo.save(room);
+        return room.getId();
     }
 
     public Optional<Room> getRoomService (Integer id) {
