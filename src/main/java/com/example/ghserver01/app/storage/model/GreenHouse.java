@@ -29,6 +29,7 @@ public class GreenHouse {
     private Boolean ventilation;
     private String washingInterval;
     private String ph;
+    private boolean isNew;
 
 }
 

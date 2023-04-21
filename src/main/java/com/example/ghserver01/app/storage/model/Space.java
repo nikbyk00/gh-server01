@@ -17,5 +17,7 @@ public class Space {
     private Integer id;
     private String name;
     private Integer userId;
+    private boolean isNew;
+    private String color;
 
 }

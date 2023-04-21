@@ -16,25 +16,15 @@ import java.util.Optional;
 @AllArgsConstructor
 public class ReceivingSpace {
 
-    private SpaceRepo spaceRepo;
+   // private SpaceRepo spaceRepo;
     private RoomRepo roomRepo;
     private GreenHouseRepo greenHouseRepo;
-    public ArrayList<Space> receivingSpace (ArrayList<Space> list){
-        Iterable<Space> space = spaceRepo.findAll();
-        space.forEach(s -> list.add(s));
-        return list;
-    }
+//    public ArrayList<Space> receivingSpace (ArrayList<Space> list){
+//        Iterable<Space> space = spaceRepo.findAll();
+//        space.forEach(s -> list.add(s));
+//        return list;
+//    }
 
-//    public ArrayList<Optional<Room>> receivingRoom (ArrayList<Space> list){
-//        ArrayList<Optional<Room>> roomArrayList = new ArrayList<>();
-//        list.stream().forEach(space -> roomArrayList.add(roomRepo.findAll());
-//         return roomArrayList;
-//    }
-//
-//    public Optional<GreenHouse> receivingGreenHouse (ArrayList<Optional<Room>> room) {
-//        ArrayList<Optional<GreenHouse>> greenHouseList = new ArrayList<>();
-//        room.stream().forEach(OptionalRoomIter -> OptionalRoomIter.stream().
-//                forEach(roomIter -> gre));
-//    }
+
 }
 

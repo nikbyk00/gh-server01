@@ -2,35 +2,29 @@ package com.example.ghserver01.app.service;
 
 import com.example.ghserver01.app.repositoryCrud.UserRepo;
 import com.example.ghserver01.app.storage.model.User;
-import com.example.ghserver01.app.util.Exception.ExceptionAuth;
+import com.example.ghserver01.app.util.Exception.RequiredException;
 import com.example.ghserver01.app.util.Helper.Common;
 import com.example.ghserver01.app.util.Mailer;
 import com.example.ghserver01.app.util.Value.Constants;
 import com.mysql.cj.util.StringUtils;
 import lombok.AllArgsConstructor;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class RegService {
     UserRepo userRepo;
-    Constants constants;
     Mailer mailer;
     Common common;
-    ExceptionAuth errorAuth;
+    RequiredException errorAuth;
 
-    public ResponseEntity<User> createUser (User user) throws ExceptionAuth {
+    public ResponseEntity<User> createUser (User user) throws RequiredException {
         User userFromDb = userRepo.findByEmail(user.getEmail());
 
         if (userFromDb != null) {
-            throw new ExceptionAuth("the user already exists");
+            throw new RequiredException("the user already exists");
         }
 
         user.setActivationCode(common.getCode());
@@ -43,11 +37,11 @@ public class RegService {
         return new ResponseEntity(userRepo.findById(user.getId()), HttpStatus.OK);
     }
 
-    public HttpStatus activateCode(String code) throws ExceptionAuth {
+    public HttpStatus activateCode(String code) throws RequiredException {
         User userFromDb = userRepo.findByActivationCode(code);
 
         if (userFromDb == null) {
-            throw new ExceptionAuth("Invalid code");
+            throw new RequiredException("Invalid code");
         }
 
         userFromDb.setActivationCode(null);

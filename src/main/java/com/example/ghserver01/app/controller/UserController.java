@@ -2,17 +2,15 @@ package com.example.ghserver01.app.controller;
 
 import com.example.ghserver01.app.service.AuthService;
 import com.example.ghserver01.app.service.RegService;
+import com.example.ghserver01.app.service.UserService;
 import com.example.ghserver01.app.storage.model.User;
-import com.example.ghserver01.app.util.Exception.ExceptionAuth;
+import com.example.ghserver01.app.util.Exception.RequiredException;
 import lombok.AllArgsConstructor;
-import org.json.simple.JSONArray;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -21,13 +19,15 @@ import java.util.Optional;
 public class UserController {
     RegService regService;
     AuthService authService;
+    UserService userService;
+
     @PostMapping("/registration")
-    public  ResponseEntity<User> registration (@RequestBody User user) throws ExceptionAuth {
+    public  ResponseEntity<User> registration (@RequestBody User user) {
         return regService.createUser(user);
     }
 
     @GetMapping("/activate/{code}")
-    public HttpStatus activate (@PathVariable String code) throws ExceptionAuth {
+    public HttpStatus activate (@PathVariable String code) throws RequiredException {
         return regService.activateCode(code);
     }
 
@@ -37,8 +37,18 @@ public class UserController {
     }
 
     @GetMapping(value = "/auth")
-    public User authorization (@RequestBody User user) throws ExceptionAuth {
+    public User authorization (@RequestBody User user) throws RequiredException {
         return authService.authUser(user);
+    }
+
+    @GetMapping("/userInfo")
+    public Optional<User> userInfo (@RequestBody User user) throws RequiredException {
+        return userService.getUserInfo(user);
+    }
+
+    @PostMapping("/passwordReset")
+    public ResponseEntity<User> passwordReset(User user) {
+        return userService.setPassword(user);
     }
 
 }

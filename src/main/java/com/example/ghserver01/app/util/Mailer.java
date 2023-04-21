@@ -14,8 +14,6 @@ import java.util.Map;
 public class Mailer {
     @Autowired
     private JavaMailSender mailSender;
-    @Autowired
-    private Common common;
     @Value("${spring.mail.username}")
     private String username;
 

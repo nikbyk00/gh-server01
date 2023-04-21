@@ -16,7 +16,6 @@ public class User {
     private String username;
     private String password;
     private String email;
-    private Integer spaceId;
     private String activationCode;
     private boolean activate = false;
     private String topic = "white";

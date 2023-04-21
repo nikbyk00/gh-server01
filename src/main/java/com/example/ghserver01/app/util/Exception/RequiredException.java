@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 @NoArgsConstructor
-public class ExceptionAuth extends Exception {
-    public ExceptionAuth(String message) {
+public class RequiredException extends RuntimeException {
+    public RequiredException(String message) {
         super(message);
     }
 }

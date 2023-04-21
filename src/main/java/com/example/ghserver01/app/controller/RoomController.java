@@ -2,10 +2,12 @@ package com.example.ghserver01.app.controller;
 
 import com.example.ghserver01.app.service.RoomService;
 import com.example.ghserver01.app.storage.model.Room;
+import com.example.ghserver01.app.storage.model.Space;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import java.util.List;
 
 @RestController
 @RequestMapping("/room")
@@ -13,11 +15,15 @@ import java.util.Optional;
 public class RoomController {
     RoomService roomService;
     @PostMapping("/create")
-    public Integer createRoom (@RequestBody Room room){
+    public Room createRoom (@RequestBody Room room){
         return roomService.createRoomService(room);
     }
     @GetMapping("/getRoom")
-    public Optional<Room> getRoom (@RequestBody Room room) {
-        return roomService.getRoomService(room.getId());
+    public List<Room> getRoom (@RequestBody Space space) {
+        return roomService.getRoomService(space);
+    }
+    @DeleteMapping("delete")
+    public HttpStatus deleteSpace (@RequestBody Room room) {
+        return roomService.deleteRoom(room);
     }
 }
