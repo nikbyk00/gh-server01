@@ -18,7 +18,7 @@ public class User {
     private String email;
     private String activationCode;
     private boolean activate = false;
-    private String topic = "white";
+    private String theme = "white";
     private String lang = "Russian";
 
 }

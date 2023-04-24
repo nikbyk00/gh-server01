@@ -22,9 +22,15 @@ public class SpaceController {
     public List<Space> getSpace (@RequestBody User user) {
         return spaceService.getSpaceService(user);
     }
-    @DeleteMapping("delete")
+    @DeleteMapping("/delete")
     public HttpStatus deleteSpace (@RequestBody Space space) {
         return spaceService.deleteSpace(space);
+    }
+
+    @GetMapping("/test")
+    public HttpStatus tests () {
+        System.out.println("ruuun");
+        return HttpStatus.OK;
     }
 }
 

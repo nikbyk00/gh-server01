@@ -1,6 +1,5 @@
 package com.example.ghserver01.app.util;
 
-import com.example.ghserver01.app.util.Helper.Common;
 import com.example.ghserver01.app.util.Value.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,6 +32,5 @@ public class Mailer {
         } catch (MailSendException exc) {
             Map<Object, Exception> exceptionsByMails = exc.getFailedMessages();
         }
-
     }
 }

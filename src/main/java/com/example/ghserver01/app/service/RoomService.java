@@ -21,7 +21,6 @@ public class RoomService {
              roomFromDb.setNew(false);
              roomFromDb.setName(room.getName());
              roomFromDb.setSpaceId(room.getSpaceId());
-             //roomFromDb
 
              return roomFromDb;
          }

@@ -13,11 +13,11 @@ import java.util.Optional;
 public class GreenHouseController {
     GreenHouseService greenHouseService;
     @PostMapping("/create")
-    public Integer createGreenHouse (@RequestBody GreenHouse greenHouse) {
+    public GreenHouse createGreenHouse (@RequestBody GreenHouse greenHouse) {
         return greenHouseService.createGreenHouse(greenHouse);
     }
     @GetMapping("/get")
-    public Optional<GreenHouse> getGreenHouse (@RequestBody GreenHouse greenHouse) {
+    public GreenHouse getGreenHouse (@RequestBody GreenHouse greenHouse) {
         return greenHouseService.getGreenHouseService(greenHouse.getId());
     }
 }
