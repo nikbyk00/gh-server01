@@ -2,10 +2,12 @@ package com.example.ghserver01.app.controller;
 
 import com.example.ghserver01.app.service.GreenHouseService;
 import com.example.ghserver01.app.storage.model.GreenHouse;
+import com.example.ghserver01.app.storage.model.Room;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import java.util.List;
 
 @RestController
 @RequestMapping("/greenHouse")
@@ -13,11 +15,17 @@ import java.util.Optional;
 public class GreenHouseController {
     GreenHouseService greenHouseService;
     @PostMapping("/create")
-    public GreenHouse createGreenHouse (@RequestBody GreenHouse greenHouse) {
-        return greenHouseService.createGreenHouse(greenHouse);
+    public HttpStatus createGreenHouse(GreenHouse greenHouse) {
+        return greenHouseService.createGHouse(greenHouse);
     }
-    @GetMapping("/get")
-    public GreenHouse getGreenHouse (@RequestBody GreenHouse greenHouse) {
-        return greenHouseService.getGreenHouseService(greenHouse.getId());
+
+    @GetMapping("get")
+    public List<GreenHouse> getListGHouse(Room room) {
+        return greenHouseService.getListGHouse(room);
     }
-}
+
+    @DeleteMapping("/delete")
+    public HttpStatus deleteGHouse(GreenHouse greenHouse) {
+        return greenHouseService.deleteGHouse(greenHouse);
+    }
+ }

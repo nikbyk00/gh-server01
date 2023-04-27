@@ -18,11 +18,13 @@ public class RoomController {
     public Room createRoom (@RequestBody Room room){
         return roomService.createRoomService(room);
     }
+
     @GetMapping("/getRoom")
     public List<Room> getRoom (@RequestBody Space space) {
         return roomService.getRoomService(space);
     }
-    @DeleteMapping("delete")
+
+    @DeleteMapping("/delete")
     public HttpStatus deleteSpace (@RequestBody Room room) {
         return roomService.deleteRoom(room);
     }

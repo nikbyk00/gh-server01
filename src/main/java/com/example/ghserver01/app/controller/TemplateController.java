@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping(value = "/calendar")
-public class CalendarController {
+@RequestMapping(value = "/template")
+public class TemplateController {
 }

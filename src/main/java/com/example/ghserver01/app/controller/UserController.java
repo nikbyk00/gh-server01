@@ -5,6 +5,7 @@ import com.example.ghserver01.app.service.RegService;
 import com.example.ghserver01.app.service.UserService;
 import com.example.ghserver01.app.storage.model.User;
 import com.example.ghserver01.app.util.Exception.RequiredException;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,28 +16,29 @@ import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/user")
 public class UserController {
     RegService regService;
     AuthService authService;
     UserService userService;
 
     @PostMapping("/registration")
-    public  ResponseEntity<User> registration (@RequestBody User user) {
+    public  User registration (@RequestBody User user) {
+        return regService.sendCodeUser(user);
+    }
+
+    @PostMapping("/create")
+    public User createUser (@RequestBody User user) throws RequiredException {
         return regService.createUser(user);
     }
 
-    @GetMapping("/activate/{code}")
-    public HttpStatus activate (@PathVariable String code) throws RequiredException {
-        return regService.activateCode(code);
-    }
-
     @GetMapping("/repeatSending")
-    public HttpStatus repeatCode (@RequestBody User user) {
-        return regService.sendCode(user);
+    public User repeatCode (@RequestBody User user) {
+        return regService.repeatSend(user);
     }
 
     @GetMapping(value = "/auth")
+    @Transactional
     public User authorization (@RequestBody User user) throws RequiredException {
         return authService.authUser(user);
     }
@@ -47,7 +49,7 @@ public class UserController {
     }
 
     @PostMapping("/passwordReset")
-    public ResponseEntity<User> passwordReset(User user) {
+    public ResponseEntity<User> passwordReset(@RequestBody User user) {
         return userService.setPassword(user);
     }
 

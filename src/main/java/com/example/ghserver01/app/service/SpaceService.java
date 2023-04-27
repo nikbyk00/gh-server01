@@ -38,7 +38,7 @@ public class SpaceService {
     }
 
     public HttpStatus deleteSpace(Space space) {
-        spaceRepo.delete(space);
+        spaceRepo.delete(spaceRepo.findById(space.getId()).get());
         return HttpStatus.OK;
     }
 }

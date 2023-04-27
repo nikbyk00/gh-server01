@@ -18,18 +18,10 @@ public class GreenHouse {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    private Integer roomId;
+    private Integer userId;
     private String name;
-    private String roomId;
-    private String additionalTemperature;
-    private String temperature;
-    private String ec;
-    private String co2;
-    private String illuminance;
-    private String liquidLevel;
-    private Boolean ventilation;
-    private String washingInterval;
-    private String ph;
-    private boolean isNew;
-
+    private String qr;
+    private Integer landingId;
+    private String status;
 }
-

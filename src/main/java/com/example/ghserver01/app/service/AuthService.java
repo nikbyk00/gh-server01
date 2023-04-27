@@ -12,14 +12,11 @@ import org.springframework.stereotype.Service;
 public class AuthService {
     UserRepo userRepo;
     public User authUser(User user) throws RequiredException {
-        User userFromDb = userRepo.findByPassword(user.getPassword());
+        User userFromDb = userRepo.findByEmail(user.getEmail());
 
-        if (userFromDb == null) {
-            throw new RequiredException("invalid Password");
-        }
-
-        if (StringUtils.isNullOrEmpty(userFromDb.getEmail())) {
-            throw new RequiredException("invalid login");
+        if (!userFromDb.getPassword().equals(user.getPassword()) ||
+            !userFromDb.getEmail().equals(user.getEmail())) {
+            throw new RequiredException("неверный логин или пароль");
         }
 
         return userFromDb;

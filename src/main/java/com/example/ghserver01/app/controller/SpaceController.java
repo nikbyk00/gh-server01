@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/space")
+@RequestMapping(value = "/space")
 @AllArgsConstructor
 public class SpaceController {
     private SpaceService spaceService;
@@ -18,19 +18,16 @@ public class SpaceController {
     public Space spaceCreate (@RequestBody Space space){
         return spaceService.createSpaceService(space);
     }
+
     @GetMapping("/getSpace")
     public List<Space> getSpace (@RequestBody User user) {
         return spaceService.getSpaceService(user);
     }
+
     @DeleteMapping("/delete")
     public HttpStatus deleteSpace (@RequestBody Space space) {
         return spaceService.deleteSpace(space);
     }
 
-    @GetMapping("/test")
-    public HttpStatus tests () {
-        System.out.println("ruuun");
-        return HttpStatus.OK;
-    }
 }
 

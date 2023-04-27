@@ -19,7 +19,7 @@ public class RegService {
     Common common;
     RequiredException errorAuth;
 
-    public ResponseEntity<User> createUser (User user) throws RequiredException {
+    public User sendCodeUser (User user) throws RequiredException {
         User userFromDb = userRepo.findByEmail(user.getEmail());
 
         if (userFromDb != null) {
@@ -27,17 +27,17 @@ public class RegService {
         }
 
         user.setActivationCode(common.getCode());
-        userRepo.save(user);
+        User userResp = userRepo.save(user);
 
         if (!StringUtils.isNullOrEmpty(user.getEmail())) {
             sendCode(user);
         }
 
-        return new ResponseEntity(userRepo.findById(user.getId()), HttpStatus.OK);
+        return userResp;
     }
 
-    public HttpStatus activateCode(String code) throws RequiredException {
-        User userFromDb = userRepo.findByActivationCode(code);
+    public User createUser(User user) throws RequiredException {
+        User userFromDb = userRepo.findByEmail(user.getEmail());
 
         if (userFromDb == null) {
             throw new RequiredException("Invalid code");
@@ -45,9 +45,11 @@ public class RegService {
 
         userFromDb.setActivationCode(null);
         userFromDb.setActivate(true);
+        userFromDb.setPassword(user.getPassword());
+        userFromDb.setUsername(user.getUsername());
         userRepo.save(userFromDb);
 
-        return HttpStatus.OK;
+        return userFromDb;
 
     }
 
@@ -56,5 +58,18 @@ public class RegService {
             mailer.sendMail(user.getEmail(), user.getActivationCode());
         }
         return HttpStatus.OK;
+    }
+
+    public User repeatSend(User user) {
+        User userFromDb = userRepo.findByEmail(user.getEmail());
+
+        userFromDb.setActivationCode(common.getCode());
+        userRepo.save(userFromDb);
+
+        if (!StringUtils.isNullOrEmpty(user.getEmail())) {
+            sendCode(userFromDb);
+        }
+
+        return userFromDb;
     }
 }
