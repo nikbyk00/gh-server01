@@ -19,7 +19,7 @@ public class Landing {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
-    private String greenHouseId;
+    private Integer greenHouseId;
     private Integer userId;
     private String startWork;
     private String endWork;

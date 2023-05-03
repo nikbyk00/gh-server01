@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface LandingRepo extends JpaRepository<Landing, Integer> {
     List<Landing> findByUserId (Integer id);
+
+    List<Landing> findByGreenHouseId(Integer greenHouseId);
 }

@@ -20,17 +20,12 @@ public class landingController {
 
     @GetMapping("/getList")
     public List<Landing> getListLanding (@RequestBody Landing landing) {
-        return null;
-    }
-
-    @GetMapping("/get")
-    public Landing getLanding (@RequestBody Landing landing) {
-        return null;
+        return landingService.getListLanding(landing);
     }
 
     @DeleteMapping("/delete")
     public HttpStatus deleteLanding(@RequestBody Landing landing) {
-        return null;
+        return landingService.deleteLanding(landing);
     }
 
 }
