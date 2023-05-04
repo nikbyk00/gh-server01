@@ -28,4 +28,9 @@ public class GreenHouseController {
     public HttpStatus deleteGHouse(GreenHouse greenHouse) {
         return greenHouseService.deleteGHouse(greenHouse);
     }
+
+    @GetMapping("/getStatus")
+    public List <GreenHouse> getStatus(GreenHouse greenHouse) {
+        return greenHouseService.getStatus(greenHouse);
+    }
  }

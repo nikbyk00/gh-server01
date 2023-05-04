@@ -57,6 +57,7 @@ public class LandingService {
         template.setVentilationIntervals(landing.getVentilationIntervals());
         template.setWateringDuration(landing.getWateringDuration());
         template.setLightingIntervals(landing.getLightingIntervals());
+        template.setUserId(landing.getUserId());
 
         return template;
     }

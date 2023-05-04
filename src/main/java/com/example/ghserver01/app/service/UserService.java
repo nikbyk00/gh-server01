@@ -29,20 +29,18 @@ public class UserService {
        return userFromDb;
     }
 
-    public ResponseEntity<User> setPassword(User user) {
+    public User setUserPassword(User user) {
+        User userFromDb = userRepo.findByEmail(user.getEmail());
 
-        User userFromDb = userRepo.findById(user.getId()).get();
-
-        if (!StringUtils.isNullOrEmpty(user.getEmail())) {
-
-            userFromDb.setActivationCode(common.getCode());
-            userFromDb.setPassword(user.getPassword());
-            mailer.sendMail(user.getEmail(), userFromDb.getActivationCode());
-
-        } else {
-            throw new RequiredException("enter your email");
+        if (userFromDb == null) {
+            throw new RequiredException("Invalid code");
         }
 
-        return new ResponseEntity<>(userFromDb, HttpStatus.OK);
+        userFromDb.setActivationCode(null);
+        userFromDb.setActivate(true);
+        userFromDb.setPassword(user.getPassword());
+        userRepo.save(userFromDb);
+
+        return userFromDb;
     }
 }

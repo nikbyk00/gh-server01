@@ -6,17 +6,14 @@ import lombok.*;
 
 @Entity
 @Data
-
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserBag {
-    private String name;
     @Id
-    private Long id;
+    private Integer id;
+    private String name;
+    private Integer userId;
+    private String error;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    public Long getId() {
-        return id;
-    }
 }

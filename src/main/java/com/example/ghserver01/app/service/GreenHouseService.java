@@ -27,4 +27,8 @@ public class GreenHouseService {
         greenHouseRepo.delete(greenHouseRepo.findById(greenHouse.getId()).get());
         return HttpStatus.OK;
     }
+
+    public List <GreenHouse> getStatus(GreenHouse greenHouse) {
+        return greenHouseRepo.findByUserId(greenHouse.getUserId());
+    }
 }

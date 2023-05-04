@@ -18,6 +18,7 @@ public class Template {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    private Integer userId;
     private String name;
     private Double temperature;
     private Double ec;
