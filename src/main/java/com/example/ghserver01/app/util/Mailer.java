@@ -9,6 +9,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
+
 @Service
 public class Mailer {
     @Autowired
@@ -17,7 +18,7 @@ public class Mailer {
     private String username;
 
 
-    public void sendMail (String mail, String code) {
+    public void sendMail(String mail, String code) {
 
         SimpleMailMessage simpleMail = new SimpleMailMessage();
 

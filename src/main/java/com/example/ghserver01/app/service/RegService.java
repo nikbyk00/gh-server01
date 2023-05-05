@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class RegService {
-    UserRepo userRepo;
-    Mailer mailer;
-    Common common;
+    private UserRepo userRepo;
+    private Mailer mailer;
+    private Common common;
 
     public User sendCodeUser (User user) {
         User userFromDb = userRepo.findByEmail(user.getEmail());
@@ -51,7 +51,7 @@ public class RegService {
 
     }
 
-    public HttpStatus sendCode (User user) {
+    private HttpStatus sendCode (User user) {
         if (!StringUtils.isNullOrEmpty(user.getActivationCode())) {
             mailer.sendMail(user.getEmail(), user.getActivationCode());
         }

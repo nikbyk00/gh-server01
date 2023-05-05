@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface RoomRepo extends CrudRepository<Room, Integer> {
-    List<Room> findBySpaceId (Integer id);
+    List<Room> findBySpaceId(Integer id);
 }

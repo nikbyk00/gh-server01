@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserHelper {
 
-    UserRepo userRepo;
+    private UserRepo userRepo;
 
     public String getLanguage(Integer id) {
         return userRepo.findById(id).get().getLang();

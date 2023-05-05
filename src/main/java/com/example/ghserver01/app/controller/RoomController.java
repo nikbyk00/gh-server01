@@ -14,19 +14,20 @@ import java.util.List;
 @RequestMapping("/room")
 @AllArgsConstructor
 public class RoomController {
-    RoomService roomService;
+    private RoomService roomService;
+
     @PostMapping("/create")
-    public Room createRoom (@RequestBody Room room){
+    public Room createRoom(@RequestBody Room room) {
         return roomService.createRoom(room);
     }
 
     @GetMapping("/getRoom")
-    public List<Room> getRoom (@RequestBody Room room) throws BusinessException {
+    public List<Room> getRoom(@RequestBody Room room) throws BusinessException {
         return roomService.getRoom(room);
     }
 
     @DeleteMapping("/delete")
-    public HttpStatus deleteSpace (@RequestBody Room room) {
+    public HttpStatus deleteSpace(@RequestBody Room room) {
         return roomService.deleteRoom(room);
     }
 }

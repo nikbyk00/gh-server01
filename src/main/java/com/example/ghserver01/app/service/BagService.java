@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class BagService {
+    private BagRepo bagRepo;
 
-    BagRepo bagRepo;
     public HttpStatus createBag(UserBag userBag) {
 
         bagRepo.save(userBag);

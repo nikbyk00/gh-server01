@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/bag")
 public class BagController {
 
-    BagService bagService;
+    private BagService bagService;
 
     @PostMapping("/create")
-    public HttpStatus createBag(UserBag userBag){
+    public HttpStatus createBag(UserBag userBag) {
         return bagService.createBag(userBag);
     }
 }

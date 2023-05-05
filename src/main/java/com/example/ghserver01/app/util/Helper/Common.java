@@ -26,7 +26,7 @@ public class Common {
         return code;
     }
 
-    public String getCode () {
+    public String getCode() {
         return parseCode();
     }
 

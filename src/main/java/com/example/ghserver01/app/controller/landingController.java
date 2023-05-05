@@ -12,14 +12,15 @@ import java.util.List;
 @RequestMapping("/landing")
 @AllArgsConstructor
 public class landingController {
-    LandingService landingService;
+    private LandingService landingService;
+
     @PostMapping("/create")
-    public HttpStatus createLanding (@RequestBody Landing landing) {
+    public HttpStatus createLanding(@RequestBody Landing landing) {
         return landingService.createLanding(landing);
     }
 
     @GetMapping("/getList")
-    public List<Landing> getListLanding (@RequestBody Landing landing) {
+    public List<Landing> getListLanding(@RequestBody Landing landing) {
         return landingService.getListLanding(landing);
     }
 

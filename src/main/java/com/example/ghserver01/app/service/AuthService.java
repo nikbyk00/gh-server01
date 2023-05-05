@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class AuthService {
-    UserRepo userRepo;
+    private UserRepo userRepo;
+
     public User authUser(User user) {
         User userFromDb = userRepo.findByEmail(user.getEmail());
 

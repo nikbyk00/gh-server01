@@ -13,7 +13,8 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class GreenHouseService {
-    GreenHouseRepo greenHouseRepo;
+    private GreenHouseRepo greenHouseRepo;
+
     public HttpStatus createGHouse(GreenHouse greenHouse) {
         greenHouseRepo.save(greenHouse);
         return HttpStatus.OK;
@@ -28,7 +29,7 @@ public class GreenHouseService {
         return HttpStatus.OK;
     }
 
-    public List <GreenHouse> getStatus(GreenHouse greenHouse) {
+    public List<GreenHouse> getStatus(GreenHouse greenHouse) {
         return greenHouseRepo.findByUserId(greenHouse.getUserId());
     }
 }

@@ -13,7 +13,8 @@ import java.util.List;
 @RequestMapping("/greenHouse")
 @AllArgsConstructor
 public class GreenHouseController {
-    GreenHouseService greenHouseService;
+    private GreenHouseService greenHouseService;
+
     @PostMapping("/create")
     public HttpStatus createGreenHouse(GreenHouse greenHouse) {
         return greenHouseService.createGHouse(greenHouse);
@@ -30,7 +31,7 @@ public class GreenHouseController {
     }
 
     @GetMapping("/getStatus")
-    public List <GreenHouse> getStatus(GreenHouse greenHouse) {
+    public List<GreenHouse> getStatus(GreenHouse greenHouse) {
         return greenHouseService.getStatus(greenHouse);
     }
- }
+}

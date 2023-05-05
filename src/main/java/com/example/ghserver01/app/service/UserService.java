@@ -11,12 +11,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class UserService {
-    UserRepo userRepo;
-    Common common;
-    Mailer mailer;
+    private UserRepo userRepo;
 
     public Optional<User> getUserInfo(User user) {
         Optional<User> userFromDb = userRepo.findById(user.getId());
@@ -25,7 +24,7 @@ public class UserService {
 //            throw new RequiredException("user does not exist");
 //        }
 
-       return userFromDb;
+        return userFromDb;
     }
 
     public User setUserPassword(User user) {

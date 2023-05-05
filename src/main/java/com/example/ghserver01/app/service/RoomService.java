@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class RoomService {
-    RoomRepo roomRepo;
+    private RoomRepo roomRepo;
     public Room createRoom (Room room){
 
          if (room.getId() != null) {

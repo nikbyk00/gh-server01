@@ -17,33 +17,32 @@ import java.util.Optional;
 @AllArgsConstructor
 @RequestMapping(value = "/user")
 public class UserController {
-    RegService regService;
-    AuthService authService;
-    UserService userService;
+    private RegService regService;
+    private AuthService authService;
+    private UserService userService;
 
     @PostMapping("/registration")
-    public  User registration (@RequestBody User user) {
+    public User registration(@RequestBody User user) {
         return regService.sendCodeUser(user);
     }
 
     @PostMapping("/create")
-    public User createUser (@RequestBody User user) {
+    public User createUser(@RequestBody User user) {
         return regService.createUser(user);
     }
 
     @GetMapping("/repeatSending")
-    public User repeatCode (@RequestBody User user) {
+    public User repeatCode(@RequestBody User user) {
         return regService.repeatSend(user);
     }
 
     @GetMapping(value = "/auth")
-    @Transactional
-    public User authorization (@RequestBody User user) {
+    public User authorization(@RequestBody User user) {
         return authService.authUser(user);
     }
 
     @GetMapping("/userInfo")
-    public Optional<User> userInfo (@RequestBody User user) {
+    public Optional<User> userInfo(@RequestBody User user) {
         return userService.getUserInfo(user);
     }
 

@@ -18,7 +18,7 @@ public class Settings {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private String userId;
+    private Integer userId;
     private String lang;
     private String topic;
     private String disablingSensor;

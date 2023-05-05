@@ -10,12 +10,12 @@ import java.time.LocalDateTime;
 @ControllerAdvice(annotations = CustomExceptionHandler.class)
 public class CustomAdvice {
 
-        @ExceptionHandler(BusinessException.class)
-        public ResponseEntity<ResponseException> handleException(BusinessException e) {
-            String message = String.format("%s %s", LocalDateTime.now(), e.getMessage());
-            ResponseException response = new ResponseException(message);
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        }
-
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<ResponseException> handleException(BusinessException e) {
+        String message = String.format("%s %s", LocalDateTime.now(), e.getMessage());
+        ResponseException response = new ResponseException(message);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+}
 

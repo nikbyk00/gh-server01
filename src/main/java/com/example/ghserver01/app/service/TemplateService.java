@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class TemplateService {
+    private TemplateRepo templateRepo;
 
-    TemplateRepo templateRepo;
     public Template getTemplate(Template template) {
         return templateRepo.findByUserId(template.getUserId());
     }

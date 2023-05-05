@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @RequestMapping(value = "/template")
 public class TemplateController {
-
-    TemplateService templateService;
+    private TemplateService templateService;
 
     @GetMapping("/get")
     public Template getTemplate(Template template) {

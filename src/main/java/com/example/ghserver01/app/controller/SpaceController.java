@@ -15,18 +15,19 @@ import java.util.List;
 @AllArgsConstructor
 public class SpaceController {
     private SpaceService spaceService;
+
     @PostMapping("/create")
-    public Space createSpace (@RequestBody Space space){
+    public Space createSpace(@RequestBody Space space) {
         return spaceService.createSpace(space);
     }
 
     @GetMapping("/getSpace")
-    public List<Space> getSpace (@RequestBody Space space) throws BusinessException {
+    public List<Space> getSpace(@RequestBody Space space) throws BusinessException {
         return spaceService.getSpace(space);
     }
 
     @DeleteMapping("/delete")
-    public HttpStatus deleteSpace (@RequestBody Space space) {
+    public HttpStatus deleteSpace(@RequestBody Space space) {
         return spaceService.deleteSpace(space);
     }
 
