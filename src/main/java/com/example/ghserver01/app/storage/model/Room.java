@@ -19,8 +19,8 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
-    private String spaceId;
-    private String userId;
+    private Integer spaceId;
+    private Integer userId;
     private boolean isNew;
 
 }

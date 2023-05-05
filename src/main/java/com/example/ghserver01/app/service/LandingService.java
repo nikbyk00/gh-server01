@@ -6,7 +6,6 @@ import com.example.ghserver01.app.repositoryCrud.TemplateRepo;
 import com.example.ghserver01.app.storage.model.GreenHouse;
 import com.example.ghserver01.app.storage.model.Landing;
 import com.example.ghserver01.app.storage.model.Template;
-import com.example.ghserver01.app.util.Exception.RequiredException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -87,9 +86,9 @@ public class LandingService {
     public List<Landing> getListLanding(Landing landing) { //todo
         List<Landing> landingFromDb = landingRepo.findByGreenHouseId(landing.getGreenHouseId());
 
-        if (landingFromDb == null) {
-            throw new RequiredException("посадки не существует");
-        }
+//        if (landingFromDb == null) {
+//            throw new RequiredException("посадки не существует");
+//        }
 
         return landingFromDb;
     }

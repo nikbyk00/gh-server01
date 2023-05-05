@@ -3,6 +3,8 @@ package com.example.ghserver01.app.service;
 import com.example.ghserver01.app.repositoryCrud.RoomRepo;
 import com.example.ghserver01.app.storage.model.Room;
 import com.example.ghserver01.app.storage.model.Space;
+import com.example.ghserver01.app.util.Exception.BusinessException;
+import com.example.ghserver01.app.util.Value.Constants;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -13,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class RoomService {
     RoomRepo roomRepo;
-    public Room createRoomService (Room room){
+    public Room createRoom (Room room){
 
          if (room.getId() != null) {
              Room roomFromDb = roomRepo.findById(room.getId()).get();
@@ -22,18 +24,26 @@ public class RoomService {
              roomFromDb.setName(room.getName());
              roomFromDb.setSpaceId(room.getSpaceId());
 
+             roomRepo.save(roomFromDb);
+
              return roomFromDb;
          }
 
-        Room newRoom = roomRepo.save(room);
         room.setNew(true);
+        Room newRoom = roomRepo.save(room);
 
         return newRoom;
     }
 
-    public List<Room> getRoomService (Space space) {
-        List<Room> room = roomRepo.findBySpaceId(space.getId());
-        return room;
+    public List<Room> getRoom (Room room) throws BusinessException {
+        List<Room> roomFromDb = roomRepo.findBySpaceId(room.getSpaceId());
+
+        if (roomFromDb.isEmpty()){
+
+            throw new BusinessException(Constants.ROOM_NOT_FOUND);
+
+        }
+        return roomFromDb;
     }
 
     public HttpStatus deleteRoom(Room room) {

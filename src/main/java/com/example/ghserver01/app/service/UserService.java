@@ -2,7 +2,6 @@ package com.example.ghserver01.app.service;
 
 import com.example.ghserver01.app.repositoryCrud.UserRepo;
 import com.example.ghserver01.app.storage.model.User;
-import com.example.ghserver01.app.util.Exception.RequiredException;
 import com.example.ghserver01.app.util.Helper.Common;
 import com.example.ghserver01.app.util.Mailer;
 import com.mysql.cj.util.StringUtils;
@@ -22,9 +21,9 @@ public class UserService {
     public Optional<User> getUserInfo(User user) {
         Optional<User> userFromDb = userRepo.findById(user.getId());
 
-        if (userFromDb.isEmpty()) {
-            throw new RequiredException("user does not exist");
-        }
+//        if (userFromDb.isEmpty()) {
+//            throw new RequiredException("user does not exist");
+//        }
 
        return userFromDb;
     }
@@ -32,9 +31,9 @@ public class UserService {
     public User setUserPassword(User user) {
         User userFromDb = userRepo.findByEmail(user.getEmail());
 
-        if (userFromDb == null) {
-            throw new RequiredException("Invalid code");
-        }
+//        if (userFromDb == null) {
+//            throw new RequiredException("Invalid code");
+//        }
 
         userFromDb.setActivationCode(null);
         userFromDb.setActivate(true);

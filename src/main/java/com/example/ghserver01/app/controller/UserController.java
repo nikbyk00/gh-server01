@@ -4,7 +4,6 @@ import com.example.ghserver01.app.service.AuthService;
 import com.example.ghserver01.app.service.RegService;
 import com.example.ghserver01.app.service.UserService;
 import com.example.ghserver01.app.storage.model.User;
-import com.example.ghserver01.app.util.Exception.RequiredException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,7 +27,7 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public User createUser (@RequestBody User user) throws RequiredException {
+    public User createUser (@RequestBody User user) {
         return regService.createUser(user);
     }
 
@@ -39,12 +38,12 @@ public class UserController {
 
     @GetMapping(value = "/auth")
     @Transactional
-    public User authorization (@RequestBody User user) throws RequiredException {
+    public User authorization (@RequestBody User user) {
         return authService.authUser(user);
     }
 
     @GetMapping("/userInfo")
-    public Optional<User> userInfo (@RequestBody User user) throws RequiredException {
+    public Optional<User> userInfo (@RequestBody User user) {
         return userService.getUserInfo(user);
     }
 

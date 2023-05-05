@@ -2,7 +2,6 @@ package com.example.ghserver01.app.service;
 
 import com.example.ghserver01.app.repositoryCrud.UserRepo;
 import com.example.ghserver01.app.storage.model.User;
-import com.example.ghserver01.app.util.Exception.RequiredException;
 import com.example.ghserver01.app.util.Helper.Common;
 import com.example.ghserver01.app.util.Mailer;
 import com.mysql.cj.util.StringUtils;
@@ -17,14 +16,13 @@ public class RegService {
     UserRepo userRepo;
     Mailer mailer;
     Common common;
-    RequiredException errorAuth;
 
-    public User sendCodeUser (User user) throws RequiredException {
+    public User sendCodeUser (User user) {
         User userFromDb = userRepo.findByEmail(user.getEmail());
 
-        if (userFromDb != null) {
-            throw new RequiredException("the user already exists");
-        }
+//        if (userFromDb != null) {
+//            throw new RequiredException("the user already exists");
+//        }
 
         user.setActivationCode(common.getCode());
         User userResp = userRepo.save(user);
@@ -36,12 +34,12 @@ public class RegService {
         return userResp;
     }
 
-    public User createUser(User user) throws RequiredException {
+    public User createUser(User user) {
         User userFromDb = userRepo.findByEmail(user.getEmail());
 
-        if (userFromDb == null) {
-            throw new RequiredException("Invalid code");
-        }
+//        if (userFromDb == null) {
+//            throw new RequiredException("Invalid code");
+//        }
 
         userFromDb.setActivationCode(null);
         userFromDb.setActivate(true);

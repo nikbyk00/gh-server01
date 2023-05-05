@@ -3,6 +3,10 @@ package com.example.ghserver01.app.service;
 import com.example.ghserver01.app.storage.model.Space;
 import com.example.ghserver01.app.repositoryCrud.SpaceRepo;
 import com.example.ghserver01.app.storage.model.User;
+import com.example.ghserver01.app.util.Exception.BusinessException;
+import com.example.ghserver01.app.util.Exception.CustomExceptionHandler;
+import com.example.ghserver01.app.util.Helper.UserHelper;
+import com.example.ghserver01.app.util.Value.Constants;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -13,7 +17,9 @@ import java.util.List;
 @AllArgsConstructor
 public class SpaceService {
     private SpaceRepo spaceRepo;
-    public Space createSpaceService(Space space) {
+    private UserHelper userHelper;
+
+    public Space createSpace(Space space) {
 
         if (space.getId() != null) {
             Space spaceFromDb = spaceRepo.findById(space.getId()).get();
@@ -23,18 +29,27 @@ public class SpaceService {
             spaceFromDb.setNew(false);
             spaceFromDb.setUserId(space.getUserId());
 
+            spaceRepo.save(spaceFromDb);
+
             return spaceFromDb;
         }
 
+        space.setNew(true);
         Space newSpace = spaceRepo.save(space);
-        newSpace.setNew(true);
 
         return newSpace;
     }
 
-    public List<Space> getSpaceService(User user) {
-        List<Space> space = spaceRepo.findByUserId(user.getId());
-        return space;
+    public List<Space> getSpace(Space space) throws BusinessException {
+        List<Space> spaceFromDb = spaceRepo.findByUserId(space.getUserId());
+
+        if (spaceFromDb.isEmpty()) {
+
+            throw new BusinessException(Constants.SPACE_NOT_FOUND);
+
+        }
+
+        return spaceFromDb;
     }
 
     public HttpStatus deleteSpace(Space space) {
