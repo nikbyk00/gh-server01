@@ -27,13 +27,13 @@ public class Landing {
     private Double ec;
     private Double co2;
     private Double ph;
-    private boolean template;
-    private int lightingDuration;
-    private int lightingIntervals;
-    private int wateringDuration;
-    private int irrigationIntervals;
-    private int durationVentilation;
-    private int ventilationIntervals;
-    private boolean isNew;
+    private Boolean template;
+    private Integer lightingDuration;
+    private Integer lightingIntervals;
+    private Integer wateringDuration;
+    private Integer irrigationIntervals;
+    private Integer durationVentilation;
+    private Integer ventilationIntervals;
+    private Boolean isNew;
 }
 

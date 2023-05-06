@@ -1,9 +1,10 @@
 package com.example.ghserver01.app.service;
 
 import com.example.ghserver01.app.repositoryCrud.GreenHouseRepo;
-import com.example.ghserver01.app.repositoryCrud.RoomRepo;
 import com.example.ghserver01.app.storage.model.GreenHouse;
 import com.example.ghserver01.app.storage.model.Room;
+import com.example.ghserver01.app.util.Exception.BusinessException;
+import com.example.ghserver01.app.util.Value.Constants;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -16,12 +17,33 @@ public class GreenHouseService {
     private GreenHouseRepo greenHouseRepo;
 
     public HttpStatus createGHouse(GreenHouse greenHouse) {
+
+        if (!greenHouse.getIsNew()) {
+            GreenHouse greenHouseFromDb = greenHouseRepo.findById(greenHouse.getId()).get();
+
+            greenHouseFromDb.setLandingId(greenHouse.getLandingId());
+            greenHouseFromDb.setName(greenHouse.getName());
+            greenHouseFromDb.setStatus(greenHouse.getStatus());
+            greenHouseFromDb.setUserId(greenHouse.getUserId());
+            greenHouseFromDb.setRoomId(greenHouse.getRoomId());
+            greenHouseFromDb.setQr(greenHouse.getQr());
+
+            greenHouseRepo.save(greenHouseFromDb);
+        }
+
         greenHouseRepo.save(greenHouse);
+
         return HttpStatus.OK;
     }
 
-    public List<GreenHouse> getListGHouse(Room room) {
-        return greenHouseRepo.findByRoomId(room.getId());
+    public List<GreenHouse> getListGHouse(Room room) throws BusinessException {
+        List<GreenHouse> greenHousesFromDb = greenHouseRepo.findByRoomId(room.getId());
+
+        if(greenHousesFromDb.isEmpty()) {
+            throw new BusinessException(Constants.GREEN_HOUSE_NOT_FOUND);
+        }
+
+        return greenHousesFromDb;
     }
 
     public HttpStatus deleteGHouse(GreenHouse greenHouse) {

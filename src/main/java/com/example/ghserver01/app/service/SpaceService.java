@@ -21,12 +21,11 @@ public class SpaceService {
 
     public Space createSpace(Space space) {
 
-        if (space.getId() != null) {
+        if (!space.getIsNew()) {
             Space spaceFromDb = spaceRepo.findById(space.getId()).get();
 
             spaceFromDb.setColor(space.getColor());
             spaceFromDb.setName(space.getName());
-            spaceFromDb.setNew(false);
             spaceFromDb.setUserId(space.getUserId());
 
             spaceRepo.save(spaceFromDb);
@@ -34,7 +33,6 @@ public class SpaceService {
             return spaceFromDb;
         }
 
-        space.setNew(true);
         Space newSpace = spaceRepo.save(space);
 
         return newSpace;
@@ -44,9 +42,7 @@ public class SpaceService {
         List<Space> spaceFromDb = spaceRepo.findByUserId(space.getUserId());
 
         if (spaceFromDb.isEmpty()) {
-
             throw new BusinessException(Constants.SPACE_NOT_FOUND);
-
         }
 
         return spaceFromDb;

@@ -24,6 +24,6 @@ public class Settings {
     private String disablingSensor;
     private String conflicts;
     private String reminder;
-    private boolean reminderMaturationDay;
+    private Boolean reminderMaturationDay;
 
 }

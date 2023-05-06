@@ -15,34 +15,32 @@ import java.util.List;
 @AllArgsConstructor
 public class RoomService {
     private RoomRepo roomRepo;
-    public Room createRoom (Room room){
 
-         if (room.getId() != null) {
-             Room roomFromDb = roomRepo.findById(room.getId()).get();
+    public Room createRoom(Room room) {
 
-             roomFromDb.setNew(false);
-             roomFromDb.setName(room.getName());
-             roomFromDb.setSpaceId(room.getSpaceId());
+        if (!room.getIsNew()) {
+            Room roomFromDb = roomRepo.findById(room.getId()).get();
 
-             roomRepo.save(roomFromDb);
+            roomFromDb.setName(room.getName());
+            roomFromDb.setSpaceId(room.getSpaceId());
 
-             return roomFromDb;
-         }
+            roomRepo.save(roomFromDb);
 
-        room.setNew(true);
+            return roomFromDb;
+        }
+
         Room newRoom = roomRepo.save(room);
 
         return newRoom;
     }
 
-    public List<Room> getRoom (Room room) throws BusinessException {
+    public List<Room> getRoom(Room room) throws BusinessException {
         List<Room> roomFromDb = roomRepo.findBySpaceId(room.getSpaceId());
 
-        if (roomFromDb.isEmpty()){
-
+        if (roomFromDb.isEmpty()) {
             throw new BusinessException(Constants.ROOM_NOT_FOUND);
-
         }
+
         return roomFromDb;
     }
 

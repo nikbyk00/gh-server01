@@ -35,7 +35,7 @@ public class LandingHelper {
         landingFromDb.setTemperature(landing.getTemperature());
         landingFromDb.setIrrigationIntervals(landing.getIrrigationIntervals());
         landingFromDb.setUserId(landing.getUserId());
-        landingFromDb.setTemplate(landing.isTemplate());
+        landingFromDb.setTemplate(landing.getTemplate());
         landingFromDb.setLightingDuration(landing.getLightingDuration());
         landingFromDb.setVentilationIntervals(landing.getVentilationIntervals());
         landingFromDb.setWateringDuration(landing.getWateringDuration());

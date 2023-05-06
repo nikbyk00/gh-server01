@@ -4,6 +4,7 @@ import com.example.ghserver01.app.service.AuthService;
 import com.example.ghserver01.app.service.RegService;
 import com.example.ghserver01.app.service.UserService;
 import com.example.ghserver01.app.storage.model.User;
+import com.example.ghserver01.app.util.Exception.BusinessException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/registration")
-    public User registration(@RequestBody User user) {
+    public User registration(@RequestBody User user) throws BusinessException {
         return regService.sendCodeUser(user);
     }
 
@@ -32,12 +33,12 @@ public class UserController {
     }
 
     @GetMapping("/repeatSending")
-    public User repeatCode(@RequestBody User user) {
+    public User repeatCode(@RequestBody User user) throws BusinessException {
         return regService.repeatSend(user);
     }
 
     @GetMapping(value = "/auth")
-    public User authorization(@RequestBody User user) {
+    public User authorization(@RequestBody User user) throws BusinessException {
         return authService.authUser(user);
     }
 

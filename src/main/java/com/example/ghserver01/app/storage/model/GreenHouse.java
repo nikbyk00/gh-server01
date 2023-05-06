@@ -24,4 +24,5 @@ public class GreenHouse {
     private String qr;
     private Integer landingId;
     private String status;
+    private Boolean isNew;
 }

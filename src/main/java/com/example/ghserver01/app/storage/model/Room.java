@@ -21,6 +21,6 @@ public class Room {
     private String name;
     private Integer spaceId;
     private Integer userId;
-    private boolean isNew;
+    private Boolean isNew;
 
 }
