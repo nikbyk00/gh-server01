@@ -22,8 +22,8 @@ public class SpaceController {
     }
 
     @GetMapping("/getSpace")
-    public List<Space> getSpace(@RequestBody Space space) throws BusinessException {
-        return spaceService.getSpace(space);
+    public List<Space> getSpace(@RequestParam Integer userId) throws BusinessException {
+        return spaceService.getSpace(userId);
     }
 
     @DeleteMapping("/delete")

@@ -34,8 +34,8 @@ public class RoomService {
         return newRoom;
     }
 
-    public List<Room> getRoom(Room room) throws BusinessException {
-        List<Room> roomFromDb = roomRepo.findBySpaceId(room.getSpaceId());
+    public List<Room> getRoom(Integer spaceId) throws BusinessException {
+        List<Room> roomFromDb = roomRepo.findBySpaceId(spaceId);
 
         if (roomFromDb.isEmpty()) {
             throw new BusinessException(Constants.ROOM_NOT_FOUND);

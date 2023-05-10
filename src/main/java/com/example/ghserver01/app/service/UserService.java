@@ -2,8 +2,10 @@ package com.example.ghserver01.app.service;
 
 import com.example.ghserver01.app.repositoryCrud.UserRepo;
 import com.example.ghserver01.app.storage.model.User;
+import com.example.ghserver01.app.util.Exception.BusinessException;
 import com.example.ghserver01.app.util.Helper.Common;
 import com.example.ghserver01.app.util.Mailer;
+import com.example.ghserver01.app.util.Value.Constants;
 import com.mysql.cj.util.StringUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,22 +19,22 @@ import java.util.Optional;
 public class UserService {
     private UserRepo userRepo;
 
-    public Optional<User> getUserInfo(User user) {
-        Optional<User> userFromDb = userRepo.findById(user.getId());
+    public Optional<User> getUserInfo(Integer id) throws BusinessException {
+        Optional<User> userFromDb = userRepo.findById(id);
 
-//        if (userFromDb.isEmpty()) {
-//            throw new RequiredException("user does not exist");
-//        }
+        if (userFromDb.isEmpty()) {
+            throw new BusinessException(Constants.USER_IS_NOT_FOUND);
+        }
 
         return userFromDb;
     }
 
-    public User setUserPassword(User user) {
+    public User setUserPassword(User user) throws BusinessException {
         User userFromDb = userRepo.findByEmail(user.getEmail());
 
-//        if (userFromDb == null) {
-//            throw new RequiredException("Invalid code");
-//        }
+        if (userFromDb == null) {
+            throw new BusinessException(Constants.USER_IS_NOT_FOUND);
+        }
 
         userFromDb.setActivationCode(null);
         userFromDb.setActivate(true);

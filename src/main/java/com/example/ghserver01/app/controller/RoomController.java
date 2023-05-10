@@ -22,8 +22,8 @@ public class RoomController {
     }
 
     @GetMapping("/getRoom")
-    public List<Room> getRoom(@RequestBody Room room) throws BusinessException {
-        return roomService.getRoom(room);
+    public List<Room> getRoom(@RequestParam Integer spaceId) throws BusinessException {
+        return roomService.getRoom(spaceId);
     }
 
     @DeleteMapping("/delete")

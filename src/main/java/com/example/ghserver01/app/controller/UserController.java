@@ -7,9 +7,6 @@ import com.example.ghserver01.app.storage.model.User;
 import com.example.ghserver01.app.util.Exception.BusinessException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -22,19 +19,20 @@ public class UserController {
     private AuthService authService;
     private UserService userService;
 
-    @PostMapping("/registration")
-    public User registration(@RequestBody User user) throws BusinessException {
+    @PostMapping("/sendCode")
+    public User registration(@RequestBody User user) {
         return regService.sendCodeUser(user);
     }
 
     @PostMapping("/create")
-    public User createUser(@RequestBody User user) {
+    @Transactional
+    public User createUser(@RequestBody User user) throws BusinessException {
         return regService.createUser(user);
     }
 
-    @GetMapping("/repeatSending")
-    public User repeatCode(@RequestBody User user) throws BusinessException {
-        return regService.repeatSend(user);
+    @PostMapping("/repeatSending")
+    public User repeatCode(@RequestBody User user) {
+        return regService.sendCodeUser(user);
     }
 
     @GetMapping(value = "/auth")
@@ -43,12 +41,12 @@ public class UserController {
     }
 
     @GetMapping("/userInfo")
-    public Optional<User> userInfo(@RequestBody User user) {
-        return userService.getUserInfo(user);
+    public Optional<User> userInfo(@RequestParam Integer id) throws BusinessException {
+        return userService.getUserInfo(id);
     }
 
     @PostMapping("/passwordReset")
-    public User passwordReset(@RequestBody User user) {
+    public User passwordReset(@RequestBody User user) throws BusinessException {
         return userService.setUserPassword(user);
     }
 

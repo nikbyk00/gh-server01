@@ -38,8 +38,8 @@ public class SpaceService {
         return newSpace;
     }
 
-    public List<Space> getSpace(Space space) throws BusinessException {
-        List<Space> spaceFromDb = spaceRepo.findByUserId(space.getUserId());
+    public List<Space> getSpace(Integer userId) throws BusinessException {
+        List<Space> spaceFromDb = spaceRepo.findByUserId(userId);
 
         if (spaceFromDb.isEmpty()) {
             throw new BusinessException(Constants.SPACE_NOT_FOUND);

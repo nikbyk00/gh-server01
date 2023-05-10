@@ -19,58 +19,33 @@ public class RegService {
     private Mailer mailer;
     private Common common;
 
-    public User sendCodeUser(User user) throws BusinessException {
+    public User sendCodeUser(User user) {
+
+        user.setActivationCode(common.getCode());
+
+        if (!StringUtils.isNullOrEmpty(user.getEmail())) {
+            sendCode(user.getEmail(), user.getActivationCode());
+        }
+
+        return user;
+    }
+
+    public User createUser(User user) throws BusinessException {
         User userFromDb = userRepo.findByEmail(user.getEmail());
 
         if (userFromDb != null) {
             throw new BusinessException(Constants.USER_ALREADY_EXISTS);
         }
 
-        user.setActivationCode(common.getCode());
-        User userResp = userRepo.save(user);
+        user.setActivate(true);
+        User newUser = userRepo.save(user);
 
-        if (!StringUtils.isNullOrEmpty(user.getEmail())) {
-            sendCode(user);
-        }
-
-        return userResp;
+        return newUser;
     }
 
-    public User createUser(User user) {
-        User userFromDb = userRepo.findByEmail(user.getEmail());
-
-        userFromDb.setActivationCode(null);
-        userFromDb.setActivate(true);
-        userFromDb.setPassword(user.getPassword());
-        userFromDb.setUsername(user.getUsername());
-        userRepo.save(userFromDb);
-
-        return userFromDb;
-    }
-
-    private HttpStatus sendCode(User user) {
-
-        if (!StringUtils.isNullOrEmpty(user.getActivationCode())) {
-            mailer.sendMail(user.getEmail(), user.getActivationCode());
-        }
-
+    private HttpStatus sendCode(String email, String code) {
+        mailer.sendMail(email, code);
         return HttpStatus.OK;
     }
 
-    public User repeatSend(User user) throws BusinessException {
-        User userFromDb = userRepo.findByEmail(user.getEmail());
-
-        if (userFromDb == null) {
-            throw new BusinessException(Constants.USER_IS_NOT_FOUND);
-        }
-
-        userFromDb.setActivationCode(common.getCode());
-        userRepo.save(userFromDb);
-
-        if (!StringUtils.isNullOrEmpty(user.getEmail())) {
-            sendCode(userFromDb);
-        }
-
-        return userFromDb;
-    }
 }
