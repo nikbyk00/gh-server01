@@ -20,7 +20,6 @@ public class GhServer01Application extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication.run(GhServer01Application.class, args);
-        met();
     }
     @Bean
     public WebMvcConfigurer corsConfigurer() {
@@ -32,11 +31,6 @@ public class GhServer01Application extends SpringBootServletInitializer {
         };
     }
 
-    public static void met() {
-        int i = 0;
-        while(true) {
-            System.out.println(i++);
-        }
-    }
+
 
 }
