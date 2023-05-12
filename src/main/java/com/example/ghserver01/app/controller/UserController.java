@@ -9,6 +9,7 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -20,7 +21,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/sendCode")
-    public User registration(@RequestBody User user) {
+    public String registration(@RequestBody User user) {
         return regService.sendCodeUser(user);
     }
 
@@ -28,11 +29,6 @@ public class UserController {
     @Transactional
     public User createUser(@RequestBody User user) throws BusinessException {
         return regService.createUser(user);
-    }
-
-    @PostMapping("/repeatSending")
-    public User repeatCode(@RequestBody User user) {
-        return regService.sendCodeUser(user);
     }
 
     @GetMapping(value = "/auth")
