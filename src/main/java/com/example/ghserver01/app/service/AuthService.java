@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
 public class AuthService {
     private UserRepo userRepo;
 
-    public User authUser(User user) throws BusinessException {
-        User userFromDb = userRepo.findByEmail(user.getEmail());
+    public User authUser(String email, String password) throws BusinessException {
+        User userFromDb = userRepo.findByEmail(email);
 
-        if (!userFromDb.getPassword().equals(user.getPassword()) ||
-            !userFromDb.getEmail().equals(user.getEmail())) {
+        if (!userFromDb.getPassword().equals(password) ||
+            !userFromDb.getEmail().equals(email)) {
             throw new BusinessException(Constants.WRONG_LOGIN_OR_PASSWORD);
         }
 

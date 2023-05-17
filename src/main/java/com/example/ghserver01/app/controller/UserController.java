@@ -32,8 +32,8 @@ public class UserController {
     }
 
     @GetMapping(value = "/auth")
-    public User authorization(@RequestBody User user) throws BusinessException {
-        return authService.authUser(user);
+    public User authorization(@RequestParam String email, String password) throws BusinessException {
+        return authService.authUser(email, password);
     }
 
     @GetMapping("/userInfo")
