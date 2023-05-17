@@ -13,13 +13,19 @@ public class AuthService {
     private UserRepo userRepo;
 
     public User authUser(String email, String password) throws BusinessException {
-        User userFromDb = userRepo.findByEmail(email);
 
-        if (!userFromDb.getPassword().equals(password) ||
-            !userFromDb.getEmail().equals(email)) {
+        try {
+            User userFromDb = userRepo.findByEmail(email);
+
+            if (!userFromDb.getPassword().equals(password)) {
+                throw new BusinessException(Constants.WRONG_LOGIN_OR_PASSWORD);
+            }
+
+            return userFromDb;
+
+        } catch (RuntimeException ex) {
             throw new BusinessException(Constants.WRONG_LOGIN_OR_PASSWORD);
         }
 
-        return userFromDb;
     }
 }

@@ -6,16 +6,11 @@ import com.example.ghserver01.app.util.Exception.BusinessException;
 import com.example.ghserver01.app.util.Helper.Common;
 import com.example.ghserver01.app.util.Mailer;
 import com.example.ghserver01.app.util.Value.Constants;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.mysql.cj.util.StringUtils;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.json.GsonJsonParser;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -23,17 +18,16 @@ public class RegService {
     private UserRepo userRepo;
     private Mailer mailer;
     private Common common;
-    ObjectMapper objectMapper;
+    private Gson gson;
 
     public String sendCodeUser(User user) {
         String code = common.getCode();
-        //objectMapper.readValue(code, String.class)
 
         if (!StringUtils.isNullOrEmpty(user.getEmail())) {
             sendCode(user.getEmail(), code);
         }
 
-        return code;
+        return gson.toJson(code);
     }
 
     public User createUser(User user) throws BusinessException {

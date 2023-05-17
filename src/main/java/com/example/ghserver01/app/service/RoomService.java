@@ -2,7 +2,6 @@ package com.example.ghserver01.app.service;
 
 import com.example.ghserver01.app.repositoryCrud.RoomRepo;
 import com.example.ghserver01.app.storage.model.Room;
-import com.example.ghserver01.app.storage.model.Space;
 import com.example.ghserver01.app.util.Exception.BusinessException;
 import com.example.ghserver01.app.util.Value.Constants;
 import lombok.AllArgsConstructor;
@@ -34,14 +33,8 @@ public class RoomService {
         return newRoom;
     }
 
-    public List<Room> getRoom(Integer spaceId) throws BusinessException {
-        List<Room> roomFromDb = roomRepo.findBySpaceId(spaceId);
-
-        if (roomFromDb.isEmpty()) {
-            throw new BusinessException(Constants.ROOM_NOT_FOUND);
-        }
-
-        return roomFromDb;
+    public List<Room> getRoom(Integer spaceId) {
+        return roomRepo.findBySpaceId(spaceId);
     }
 
     public HttpStatus deleteRoom(Room room) {

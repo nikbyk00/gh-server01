@@ -2,7 +2,6 @@ package com.example.ghserver01.app.controller;
 
 import com.example.ghserver01.app.service.RoomService;
 import com.example.ghserver01.app.storage.model.Room;
-import com.example.ghserver01.app.storage.model.Space;
 import com.example.ghserver01.app.util.Exception.BusinessException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,7 +21,7 @@ public class RoomController {
     }
 
     @GetMapping("/getRoom")
-    public List<Room> getRoom(@RequestParam Integer spaceId) throws BusinessException {
+    public List<Room> getRoom(@RequestParam Integer spaceId){
         return roomService.getRoom(spaceId);
     }
 

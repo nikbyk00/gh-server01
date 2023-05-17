@@ -9,9 +9,6 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
-
 @RestController
 @AllArgsConstructor
 @RequestMapping(value = "/user")
@@ -37,7 +34,7 @@ public class UserController {
     }
 
     @GetMapping("/userInfo")
-    public Optional<User> userInfo(@RequestParam Integer id) throws BusinessException {
+    public User userInfo(@RequestParam Integer id) throws BusinessException {
         return userService.getUserInfo(id);
     }
 

@@ -17,22 +17,22 @@ public class GreenHouseController {
     private GreenHouseService greenHouseService;
 
     @PostMapping("/create")
-    public HttpStatus createGreenHouse(GreenHouse greenHouse) {
+    public HttpStatus createGreenHouse(@RequestBody GreenHouse greenHouse) {
         return greenHouseService.createGHouse(greenHouse);
     }
 
     @GetMapping("get")
-    public List<GreenHouse> getListGHouse(Room room) throws BusinessException {
-        return greenHouseService.getListGHouse(room);
+    public List<GreenHouse> getListGHouse(@RequestParam Integer roomId) {
+        return greenHouseService.getListGHouse(roomId);
     }
 
     @DeleteMapping("/delete")
-    public HttpStatus deleteGHouse(GreenHouse greenHouse) {
+    public HttpStatus deleteGHouse(@RequestBody GreenHouse greenHouse) {
         return greenHouseService.deleteGHouse(greenHouse);
     }
 
     @GetMapping("/getStatus")
-    public List<GreenHouse> getStatus(GreenHouse greenHouse) {
-        return greenHouseService.getStatus(greenHouse);
+    public List<GreenHouse> getStatus(@RequestParam Integer userId) {
+        return greenHouseService.getStatus(userId);
     }
 }

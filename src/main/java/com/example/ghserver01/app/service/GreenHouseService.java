@@ -36,14 +36,8 @@ public class GreenHouseService {
         return HttpStatus.OK;
     }
 
-    public List<GreenHouse> getListGHouse(Room room) throws BusinessException {
-        List<GreenHouse> greenHousesFromDb = greenHouseRepo.findByRoomId(room.getId());
-
-        if(greenHousesFromDb.isEmpty()) {
-            throw new BusinessException(Constants.GREEN_HOUSE_NOT_FOUND);
-        }
-
-        return greenHousesFromDb;
+    public List<GreenHouse> getListGHouse(Integer roomId) {
+        return greenHouseRepo.findByRoomId(roomId);
     }
 
     public HttpStatus deleteGHouse(GreenHouse greenHouse) {
@@ -51,7 +45,7 @@ public class GreenHouseService {
         return HttpStatus.OK;
     }
 
-    public List<GreenHouse> getStatus(GreenHouse greenHouse) {
-        return greenHouseRepo.findByUserId(greenHouse.getUserId());
+    public List<GreenHouse> getStatus(Integer userId) {
+        return greenHouseRepo.findByUserId(userId);
     }
 }

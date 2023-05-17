@@ -1,10 +1,8 @@
 package com.example.ghserver01.app.service;
 
-import com.example.ghserver01.app.storage.model.Space;
 import com.example.ghserver01.app.repositoryCrud.SpaceRepo;
-import com.example.ghserver01.app.storage.model.User;
+import com.example.ghserver01.app.storage.model.Space;
 import com.example.ghserver01.app.util.Exception.BusinessException;
-import com.example.ghserver01.app.util.Exception.CustomExceptionHandler;
 import com.example.ghserver01.app.util.Helper.UserHelper;
 import com.example.ghserver01.app.util.Value.Constants;
 import lombok.AllArgsConstructor;
@@ -38,14 +36,8 @@ public class SpaceService {
         return newSpace;
     }
 
-    public List<Space> getSpace(Integer userId) throws BusinessException {
-        List<Space> spaceFromDb = spaceRepo.findByUserId(userId);
-
-        if (spaceFromDb.isEmpty()) {
-            throw new BusinessException(Constants.SPACE_NOT_FOUND);
-        }
-
-        return spaceFromDb;
+    public List<Space> getSpace(Integer userId) {
+        return spaceRepo.findByUserId(userId);
     }
 
     public HttpStatus deleteSpace(Space space) {
