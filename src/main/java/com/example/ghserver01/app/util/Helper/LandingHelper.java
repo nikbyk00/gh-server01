@@ -40,6 +40,7 @@ public class LandingHelper {
         landingFromDb.setVentilationIntervals(landing.getVentilationIntervals());
         landingFromDb.setWateringDuration(landing.getWateringDuration());
         landingFromDb.setLightingIntervals(landing.getLightingIntervals());
+        landingFromDb.setIsNew(landing.getIsNew());
 
         return landingFromDb;
     }

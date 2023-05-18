@@ -24,29 +24,22 @@ public class LandingService {
     private GreenHouseRepo greenHouseRepo;
     private LandingHelper landingHelper;
 
-    public List<Landing> getHistoryLanding(Landing landing) throws BusinessException {
-
-        List<Landing> landingFromDb = landingRepo.findByUserId(landing.getUserId());
-
-        if (landingFromDb.isEmpty()) {
-            throw new BusinessException(Constants.LANDING_NOT_FOUND);
-        }
-
-        return landingFromDb;
+    public List<Landing> getHistoryLanding(Integer userId)  {
+        return landingRepo.findByUserId(userId);
     }
 
-    public HttpStatus createLanding(Landing landing) {
+    public Landing createLanding(Landing landing) {
 
         if (landing.getIsNew()) {
-            landingRepo.save(landing);
+            Landing newLanding = landingRepo.save(landing);
             updateStatusGreenHouse(landing);
 
-            if (landing.getTemplate()) {
+            if (landing.getTemplate()) { //todo
                 Template template = new Template();
                 templateRepo.save(landingHelper.createTemplate(template, landing));
             }
 
-            return HttpStatus.OK;
+            return newLanding;
         }
 
         Landing landingFromDb = landingRepo.findById(landing.getId()).get();
@@ -56,21 +49,15 @@ public class LandingService {
         greenHouseFromDb.setLandingId(landing.getId());
         greenHouseRepo.save(greenHouseFromDb);
 
-        return HttpStatus.OK;
+        return landingFromDb;
     }
 
     private void updateStatusGreenHouse(Landing landing) {
         greenHouseRepo.findById(landing.getGreenHouseId()).get().setStatus(StatusGHouse.LANDING.toString());
     }
 
-    public List<Landing> getListLanding(Landing landing) throws BusinessException {
-        List<Landing> landingFromDb = landingRepo.findByGreenHouseId(landing.getGreenHouseId());
-
-        if (landingFromDb.isEmpty()) {
-            throw new BusinessException(Constants.LANDING_NOT_FOUND);
-        }
-
-        return landingFromDb;
+    public List<Landing> getListLanding(Integer greenHouseId) {
+        return landingRepo.findByGreenHouseId(greenHouseId);
     }
 
     public HttpStatus deleteLanding(Landing landing) {

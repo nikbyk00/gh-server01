@@ -17,7 +17,7 @@ public class GreenHouseController {
     private GreenHouseService greenHouseService;
 
     @PostMapping("/create")
-    public HttpStatus createGreenHouse(@RequestBody GreenHouse greenHouse) {
+    public GreenHouse createGreenHouse(@RequestBody GreenHouse greenHouse) {
         return greenHouseService.createGHouse(greenHouse);
     }
 

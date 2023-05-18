@@ -16,7 +16,7 @@ import java.util.List;
 public class GreenHouseService {
     private GreenHouseRepo greenHouseRepo;
 
-    public HttpStatus createGHouse(GreenHouse greenHouse) {
+    public GreenHouse createGHouse(GreenHouse greenHouse) {
 
         if (!greenHouse.getIsNew()) {
             GreenHouse greenHouseFromDb = greenHouseRepo.findById(greenHouse.getId()).get();
@@ -31,9 +31,7 @@ public class GreenHouseService {
             greenHouseRepo.save(greenHouseFromDb);
         }
 
-        greenHouseRepo.save(greenHouse);
-
-        return HttpStatus.OK;
+        return greenHouseRepo.save(greenHouse);
     }
 
     public List<GreenHouse> getListGHouse(Integer roomId) {

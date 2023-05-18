@@ -16,13 +16,13 @@ public class landingController {
     private LandingService landingService;
 
     @PostMapping("/create")
-    public HttpStatus createLanding(@RequestBody Landing landing) {
+    public Landing createLanding(@RequestBody Landing landing) {
         return landingService.createLanding(landing);
     }
 
     @GetMapping("/getList")
-    public List<Landing> getListLanding(@RequestBody Landing landing) throws BusinessException {
-        return landingService.getListLanding(landing);
+    public List<Landing> getListLanding(@RequestParam Integer greenHouseId) {
+        return landingService.getListLanding(greenHouseId);
     }
 
     @DeleteMapping("/delete")
@@ -31,8 +31,8 @@ public class landingController {
     }
 
     @GetMapping("/historyLanding")
-    public List<Landing> getHistoryLanding(@RequestBody Landing landing) throws BusinessException {
-        return landingService.getHistoryLanding(landing);
+    public List<Landing> getHistoryLanding(@RequestParam Integer userId) {
+        return landingService.getHistoryLanding(userId);
     }
 
 }
