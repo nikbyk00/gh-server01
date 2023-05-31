@@ -15,7 +15,7 @@ import java.util.List;
 public class RoomService {
     private RoomRepo roomRepo;
 
-    public Room createRoom(Room room) {
+    public HttpStatus createRoom(Room room) {
 
         if (!room.getIsNew()) {
             Room roomFromDb = roomRepo.findById(room.getId()).get();
@@ -25,12 +25,12 @@ public class RoomService {
 
             roomRepo.save(roomFromDb);
 
-            return roomFromDb;
+            return HttpStatus.OK;
         }
 
-        Room newRoom = roomRepo.save(room);
+        roomRepo.save(room);
 
-        return newRoom;
+        return HttpStatus.OK;
     }
 
     public List<Room> getRoom(Integer spaceId) {

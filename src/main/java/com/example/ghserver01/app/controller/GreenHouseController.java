@@ -17,11 +17,11 @@ public class GreenHouseController {
     private GreenHouseService greenHouseService;
 
     @PostMapping("/create")
-    public GreenHouse createGreenHouse(@RequestBody GreenHouse greenHouse) {
+    public HttpStatus createGreenHouse(@RequestBody GreenHouse greenHouse) {
         return greenHouseService.createGHouse(greenHouse);
     }
 
-    @GetMapping("get")
+    @GetMapping("'/get")
     public List<GreenHouse> getListGHouse(@RequestParam Integer roomId) {
         return greenHouseService.getListGHouse(roomId);
     }
@@ -29,10 +29,5 @@ public class GreenHouseController {
     @DeleteMapping("/delete")
     public HttpStatus deleteGHouse(@RequestBody GreenHouse greenHouse) {
         return greenHouseService.deleteGHouse(greenHouse);
-    }
-
-    @GetMapping("/getStatus")
-    public List<GreenHouse> getStatus(@RequestParam Integer userId) {
-        return greenHouseService.getStatus(userId);
     }
 }

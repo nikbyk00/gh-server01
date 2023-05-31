@@ -11,14 +11,11 @@ public class LandingHelper {
         template.setCo2(landing.getCo2());
         template.setPh(landing.getPh());
         template.setName(landing.getName());
-        template.setDurationVentilation(landing.getDurationVentilation());
         template.setTemperature(landing.getTemperature());
         template.setIrrigationIntervals(landing.getIrrigationIntervals());
         template.setLightingDuration(landing.getLightingDuration());
-        template.setVentilationIntervals(landing.getVentilationIntervals());
         template.setWateringDuration(landing.getWateringDuration());
         template.setLightingIntervals(landing.getLightingIntervals());
-        template.setUserId(landing.getUserId());
 
         return template;
     }
@@ -30,17 +27,15 @@ public class LandingHelper {
         landingFromDb.setStartWork(landing.getStartWork());
         landingFromDb.setEndWork(landing.getEndWork());
         landingFromDb.setName(landing.getName());
-        landingFromDb.setDurationVentilation(landing.getDurationVentilation());
         landingFromDb.setGreenHouseId(landing.getGreenHouseId());
         landingFromDb.setTemperature(landing.getTemperature());
         landingFromDb.setIrrigationIntervals(landing.getIrrigationIntervals());
-        landingFromDb.setUserId(landing.getUserId());
         landingFromDb.setTemplate(landing.getTemplate());
         landingFromDb.setLightingDuration(landing.getLightingDuration());
-        landingFromDb.setVentilationIntervals(landing.getVentilationIntervals());
         landingFromDb.setWateringDuration(landing.getWateringDuration());
         landingFromDb.setLightingIntervals(landing.getLightingIntervals());
         landingFromDb.setIsNew(landing.getIsNew());
+        landingFromDb.setRoomId(landing.getRoomId());
 
         return landingFromDb;
     }

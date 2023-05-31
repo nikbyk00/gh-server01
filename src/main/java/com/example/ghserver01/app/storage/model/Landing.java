@@ -1,5 +1,6 @@
 package com.example.ghserver01.app.storage.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -8,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -20,9 +23,11 @@ public class Landing {
     private Integer id;
     private String name;
     private Integer greenHouseId;
-    private Integer userId;
-    private String startWork;
-    private String endWork;
+    private Integer roomId;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate startWork;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate endWork;
     private Double temperature;
     private Double ec;
     private Double co2;
@@ -32,8 +37,6 @@ public class Landing {
     private Integer lightingIntervals;
     private Integer wateringDuration;
     private Integer irrigationIntervals;
-    private Integer durationVentilation;
-    private Integer ventilationIntervals;
     private Boolean isNew;
 }
 

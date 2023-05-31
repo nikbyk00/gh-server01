@@ -14,13 +14,14 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GreenHouse {
+public class Indication {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private Integer roomId;
-    private Integer userId;
-    private String name;
-    private Integer landingId;
-    private String status;
-    private Boolean isNew = false;
+    private Integer greenHouseId;
+    private Double temperature1;
+    private Double temperature2;
+    private Double ec;
+    private Double co2;
+    private Double ph;
 }

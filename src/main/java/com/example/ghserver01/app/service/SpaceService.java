@@ -17,7 +17,7 @@ public class SpaceService {
     private SpaceRepo spaceRepo;
     private UserHelper userHelper;
 
-    public Space createSpace(Space space) {
+    public HttpStatus createSpace(Space space) {
 
         if (!space.getIsNew()) {
             Space spaceFromDb = spaceRepo.findById(space.getId()).get();
@@ -28,12 +28,12 @@ public class SpaceService {
 
             spaceRepo.save(spaceFromDb);
 
-            return spaceFromDb;
+            return HttpStatus.OK;
         }
 
-        Space newSpace = spaceRepo.save(space);
+        spaceRepo.save(space);
 
-        return newSpace;
+        return HttpStatus.OK;
     }
 
     public List<Space> getSpace(Integer userId) {

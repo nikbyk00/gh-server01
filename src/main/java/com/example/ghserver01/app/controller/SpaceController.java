@@ -16,7 +16,7 @@ public class SpaceController {
     private SpaceService spaceService;
 
     @PostMapping("/create")
-    public Space createSpace(@RequestBody Space space) {
+    public HttpStatus createSpace(@RequestBody Space space) {
         return spaceService.createSpace(space);
     }
 

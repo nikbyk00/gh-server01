@@ -28,6 +28,4 @@ public class Template {
     private Integer lightingIntervals;
     private Integer wateringDuration;
     private Integer irrigationIntervals;
-    private Integer durationVentilation;
-    private Integer ventilationIntervals;
 }
