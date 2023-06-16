@@ -11,9 +11,6 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
 public class Calendar {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

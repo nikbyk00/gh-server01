@@ -1,27 +1,26 @@
 package com.example.ghserver01.app.storage.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 
 @Entity
 @Data
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
 public class Indication {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private Integer greenHouseId;
+    @OneToOne
+    @JoinColumn(name = "green_house_id")
+    private GreenHouse greenHouse;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate time;
     private Double temperature1;
     private Double temperature2;
     private Double ec;
     private Double co2;
     private Double ph;
+
 }

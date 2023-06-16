@@ -16,8 +16,10 @@ public class landingController {
     private LandingService landingService;
 
     @PostMapping("/create")
-    public HttpStatus createLanding(@RequestBody Landing landing) {
-        return landingService.createLanding(landing);
+    public HttpStatus createLanding(@RequestBody Landing landing,
+                                    @RequestParam Boolean isNew,
+                                    @RequestParam Boolean creatingTemplate) {
+        return landingService.createLanding(landing, isNew, creatingTemplate);
     }
 
     @GetMapping("/getLanding")

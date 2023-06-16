@@ -1,9 +1,6 @@
 package com.example.ghserver01.app.service;
 
-import com.example.ghserver01.app.repositoryCrud.GreenHouseRepo;
-import com.example.ghserver01.app.repositoryCrud.IndicationRepo;
-import com.example.ghserver01.app.repositoryCrud.LandingRepo;
-import com.example.ghserver01.app.repositoryCrud.TemplateRepo;
+import com.example.ghserver01.app.repositoryCrud.*;
 import com.example.ghserver01.app.storage.model.GreenHouse;
 import com.example.ghserver01.app.storage.model.Indication;
 import com.example.ghserver01.app.storage.model.Landing;
@@ -17,7 +14,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -30,16 +26,24 @@ public class LandingService {
     private IndicationRepo indicationRepo;
 
     public List<Landing> getHistoryLanding(Integer roomId)  {
-        return landingRepo.findByRoomId(roomId);
+      // List<GreenHouse> gHouseFromDb = greenHouseRepo.findByRoomId(roomId);
+//       List <Landing> landing =
+//               gHouseFromDb.
+//               stream().
+//               peek(s -> landingRepo.findByGreenHouseId(s.getId())).
+//               collect(Collectors.toList());
+
+        return null;
     }
 
-    public HttpStatus createLanding(Landing landing) {
+    public HttpStatus createLanding(Landing landing, Boolean isNew, Boolean creatingTemplate) {
 
-        if (landing.getIsNew()) {
+        if (isNew) {
             landingRepo.save(landing);
             updateStatusGreenHouse(landing);
+            updateGreenHouseId(landing);
 
-            if (landing.getTemplate()) {
+            if (creatingTemplate) {
                 Template template = new Template();
                 templateRepo.save(landingHelper.createTemplate(template, landing));
             }
@@ -50,19 +54,24 @@ public class LandingService {
         Landing landingFromDb = landingRepo.findById(landing.getId()).get();
         landingRepo.save(landingHelper.updateLanding(landingFromDb, landing));
 
-        GreenHouse greenHouseFromDb = greenHouseRepo.findById(landingFromDb.getGreenHouseId()).get();
-        greenHouseFromDb.setLandingId(landing.getId());
-        greenHouseRepo.save(greenHouseFromDb);
+        updateGreenHouseId(landingFromDb);
 
         return HttpStatus.OK;
     }
 
     private void updateStatusGreenHouse(Landing landing) {
-        greenHouseRepo.findById(landing.getGreenHouseId()).get().setStatus(StatusGHouse.LANDING.toString());
+        greenHouseRepo.findById(landing.getGreenHouse().getId()).get().setStatus(StatusGHouse.LANDING.toString());
+    }
+
+    private void updateGreenHouseId(Landing landing) {
+        GreenHouse greenHouseFromDb = greenHouseRepo.findById(landing.getGreenHouse().getId()).get();
+        greenHouseFromDb.setLanding(landing);
+        greenHouseRepo.save(greenHouseFromDb);
     }
 
     public FullLandingInfo getLanding(Integer greenHouseId) {
-        Landing landingFromDb = landingRepo.findByGreenHouseId(greenHouseId);
+        GreenHouse greenHouse = greenHouseRepo.findById(greenHouseId).get();
+        Landing landingFromDb = landingRepo.findById(greenHouse.getLanding().getId()).get();
         String greenHouseName = greenHouseRepo.findById(greenHouseId).get().getName();
         Indication indication = indicationRepo.findByGreenHouseId(greenHouseId);
 

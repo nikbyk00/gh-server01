@@ -6,7 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface GreenHouseRepo extends JpaRepository<GreenHouse, Integer> {
-    List<GreenHouse> findByRoomId(Integer id);
-
-    List<GreenHouse> findByUserId(Integer userId);
+    //List<GreenHouse> findByRoomId(Integer id);
 }

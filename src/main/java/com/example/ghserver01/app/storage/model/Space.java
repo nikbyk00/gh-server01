@@ -1,14 +1,17 @@
 package com.example.ghserver01.app.storage.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.Hibernate;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import java.util.List;
+import java.util.Objects;
 
 @Entity
-@Data
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Space {
@@ -16,8 +19,22 @@ public class Space {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
-    private Integer userId;
-    private Boolean isNew;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Room> roomList;
+    @ManyToOne
+    private User user;
     private String color;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Space space = (Space) o;
+        return getId() != null && Objects.equals(getId(), space.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

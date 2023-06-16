@@ -1,9 +1,9 @@
 package com.example.ghserver01.app.service;
 
 import com.example.ghserver01.app.repositoryCrud.RoomRepo;
+import com.example.ghserver01.app.repositoryCrud.SpaceRepo;
 import com.example.ghserver01.app.storage.model.Room;
-import com.example.ghserver01.app.util.Exception.BusinessException;
-import com.example.ghserver01.app.util.Value.Constants;
+import com.example.ghserver01.app.storage.model.Space;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -14,31 +14,34 @@ import java.util.List;
 @AllArgsConstructor
 public class RoomService {
     private RoomRepo roomRepo;
+    private SpaceRepo spaceRepo;
 
-    public HttpStatus createRoom(Room room) {
+    public HttpStatus createRoom(Room room, Integer spaceId, Boolean isNew) {
 
-        if (!room.getIsNew()) {
-            Room roomFromDb = roomRepo.findById(room.getId()).get();
-
-            roomFromDb.setName(room.getName());
-            roomFromDb.setSpaceId(room.getSpaceId());
-
-            roomRepo.save(roomFromDb);
+        if (isNew) {
+            roomRepo.save(room);
+            Space spaceFromDb = spaceRepo.findById(spaceId).get();
+            spaceFromDb.getRoomList().add(room);
+            spaceRepo.save(spaceFromDb);
 
             return HttpStatus.OK;
         }
 
-        roomRepo.save(room);
+        Room roomFromDb = roomRepo.findById(room.getId()).get();
+        roomFromDb.setName(room.getName());
+        roomRepo.save(roomFromDb);
 
         return HttpStatus.OK;
     }
 
     public List<Room> getRoom(Integer spaceId) {
-        return roomRepo.findBySpaceId(spaceId);
+        Space spaceFromDb = spaceRepo.findById(spaceId).get();
+        return spaceFromDb.getRoomList();
     }
 
     public HttpStatus deleteRoom(Room room) {
         roomRepo.delete(roomRepo.findById(room.getId()).get());
         return HttpStatus.OK;
     }
+
 }

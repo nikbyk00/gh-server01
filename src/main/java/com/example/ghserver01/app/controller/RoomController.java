@@ -16,8 +16,10 @@ public class RoomController {
     private RoomService roomService;
 
     @PostMapping("/create")
-    public HttpStatus createRoom(@RequestBody Room room) {
-        return roomService.createRoom(room);
+    public HttpStatus createRoom(@RequestBody Room room,
+                                 @RequestParam Integer spaceId,
+                                 @RequestParam Boolean isNew) {
+        return roomService.createRoom(room, spaceId, isNew);
     }
 
     @GetMapping("/getRoom")

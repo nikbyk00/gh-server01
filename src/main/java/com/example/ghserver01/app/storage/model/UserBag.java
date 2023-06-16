@@ -6,8 +6,6 @@ import lombok.*;
 
 @Entity
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class UserBag {
     @Id
     private Integer id;

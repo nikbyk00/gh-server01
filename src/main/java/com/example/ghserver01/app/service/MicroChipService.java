@@ -9,6 +9,7 @@ import com.example.ghserver01.app.storage.model.Landing;
 import com.example.ghserver01.app.util.Value.StatusGHouse;
 import com.example.ghserver01.app.util.response.MicroChip;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,8 +21,9 @@ public class MicroChipService {
     private GreenHouseRepo greenHouseRepo;
 
     public MicroChip compareIndicators(Indication indication) {
-        Landing landing = landingRepo.findByGreenHouseId(indication.getGreenHouseId());
-        Indication indicationFromDb = indicationRepo.findByGreenHouseId(indication.getGreenHouseId());
+        GreenHouse greenHouse = greenHouseRepo.findById(indication.getGreenHouse().getId()).get();
+        Landing landing = landingRepo.findById(greenHouse.getLanding().getId()).get();
+        Indication indicationFromDb = indicationRepo.findByGreenHouseId(indication.getGreenHouse().getId());
 
         updateIndication(indicationFromDb, indication);
         return compareParam(landing, indication, MicroChip.getResponseMicroChip());
@@ -57,13 +59,14 @@ public class MicroChipService {
         indicationRepo.save(oldIndication);
     }
 
-    public void create(Integer id) {
+    public HttpStatus create(Integer id) {
         GreenHouse greenHouse = new GreenHouse();
         greenHouse.setStatus(StatusGHouse.EMPTY.toString());
         greenHouse.setId(id);
         greenHouseRepo.save(greenHouse);
         Indication indication = new Indication();
-        indication.setGreenHouseId(greenHouse.getId());
+        indication.setGreenHouse(greenHouse);
         indicationRepo.save(indication);
+        return HttpStatus.OK;
     }
 }

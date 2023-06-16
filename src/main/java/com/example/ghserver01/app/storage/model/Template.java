@@ -10,10 +10,6 @@ import java.sql.Date;
 
 @Entity
 @Data
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class Template {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

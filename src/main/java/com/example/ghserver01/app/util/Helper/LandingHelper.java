@@ -27,15 +27,12 @@ public class LandingHelper {
         landingFromDb.setStartWork(landing.getStartWork());
         landingFromDb.setEndWork(landing.getEndWork());
         landingFromDb.setName(landing.getName());
-        landingFromDb.setGreenHouseId(landing.getGreenHouseId());
+        landingFromDb.setGreenHouse(landing.getGreenHouse());
         landingFromDb.setTemperature(landing.getTemperature());
         landingFromDb.setIrrigationIntervals(landing.getIrrigationIntervals());
-        landingFromDb.setTemplate(landing.getTemplate());
         landingFromDb.setLightingDuration(landing.getLightingDuration());
         landingFromDb.setWateringDuration(landing.getWateringDuration());
         landingFromDb.setLightingIntervals(landing.getLightingIntervals());
-        landingFromDb.setIsNew(landing.getIsNew());
-        landingFromDb.setRoomId(landing.getRoomId());
 
         return landingFromDb;
     }

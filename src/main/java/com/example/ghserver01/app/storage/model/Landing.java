@@ -1,29 +1,26 @@
 package com.example.ghserver01.app.storage.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
-@Data
 @Getter
-@AllArgsConstructor
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Landing {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
-    private Integer greenHouseId;
-    private Integer roomId;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "green_house_id")
+    private GreenHouse greenHouse;
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate startWork;
     @JsonFormat(pattern="yyyy-MM-dd")
@@ -32,11 +29,22 @@ public class Landing {
     private Double ec;
     private Double co2;
     private Double ph;
-    private Boolean template;
     private Integer lightingDuration;
     private Integer lightingIntervals;
     private Integer wateringDuration;
     private Integer irrigationIntervals;
-    private Boolean isNew;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Landing landing = (Landing) o;
+        return getId() != null && Objects.equals(getId(), landing.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
 

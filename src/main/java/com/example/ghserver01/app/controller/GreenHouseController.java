@@ -17,8 +17,9 @@ public class GreenHouseController {
     private GreenHouseService greenHouseService;
 
     @PostMapping("/create")
-    public HttpStatus createGreenHouse(@RequestBody GreenHouse greenHouse) {
-        return greenHouseService.createGHouse(greenHouse);
+    public HttpStatus createGreenHouse(@RequestBody GreenHouse greenHouse,
+                                       @RequestParam Integer roomId) {
+        return greenHouseService.createGHouse(greenHouse, roomId);
     }
 
     @GetMapping("'/get")

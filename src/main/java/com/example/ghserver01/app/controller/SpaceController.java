@@ -2,9 +2,11 @@ package com.example.ghserver01.app.controller;
 
 import com.example.ghserver01.app.service.SpaceService;
 import com.example.ghserver01.app.storage.model.Space;
+import com.example.ghserver01.app.storage.model.User;
 import com.example.ghserver01.app.util.Exception.BusinessException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,9 +17,11 @@ import java.util.List;
 public class SpaceController {
     private SpaceService spaceService;
 
-    @PostMapping("/create")
-    public HttpStatus createSpace(@RequestBody Space space) {
-        return spaceService.createSpace(space);
+    @PostMapping(value = "/create")
+    public HttpStatus createSpace(@RequestBody Space space,
+                                  @RequestParam Integer userId,
+                                  @RequestParam Boolean isNew) {
+        return spaceService.createSpace(space, userId, isNew);
     }
 
     @GetMapping("/getSpace")
@@ -26,8 +30,8 @@ public class SpaceController {
     }
 
     @DeleteMapping("/delete")
-    public HttpStatus deleteSpace(@RequestBody Space space) {
-        return spaceService.deleteSpace(space);
+    public HttpStatus deleteSpace(@RequestParam Integer spaceId) {
+        return spaceService.deleteSpace(spaceId);
     }
 
 }

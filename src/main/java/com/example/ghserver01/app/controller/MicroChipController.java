@@ -4,6 +4,7 @@ import com.example.ghserver01.app.service.MicroChipService;
 import com.example.ghserver01.app.storage.model.Indication;
 import com.example.ghserver01.app.util.response.MicroChip;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,8 +14,8 @@ public class MicroChipController {
     private MicroChipService microChipService;
 
     @PostMapping("/create")
-    public void createMicroChip(@RequestParam Integer id) {
-        microChipService.create(id);
+    public HttpStatus createMicroChip(@RequestParam Integer id) {
+        return microChipService.create(id);
     }
 
     @PostMapping("/processParameters")
