@@ -21,7 +21,4 @@ public class FullLandingInfo {
     private Landing landing;
     private String greenHouseName;
     private Indication indication;
-    public static FullLandingInfo createFullLandingInfo(Landing landing, String greenHouseName, Indication indication) {
-        return new FullLandingInfo(landing, greenHouseName, indication);
-    }
 }

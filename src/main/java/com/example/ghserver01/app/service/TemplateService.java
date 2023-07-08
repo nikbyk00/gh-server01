@@ -16,7 +16,7 @@ public class TemplateService {
     public List<Template> getTemplate(Template template) throws BusinessException {
         List<Template> templateFromDb = templateRepo.findByUserId(template.getUserId());
 
-        if(templateFromDb.isEmpty()) {
+        if (templateFromDb.isEmpty()) {
             throw new BusinessException(Constants.TEMPLATE_NOT_FOUND);
         }
 

@@ -22,11 +22,12 @@ public class MicroChipService {
 
     public MicroChip compareIndicators(Indication indication) {
         GreenHouse greenHouse = greenHouseRepo.findById(indication.getGreenHouse().getId()).get();
-        Landing landing = landingRepo.findById(greenHouse.getLanding().getId()).get();
+        //Landing landing = landingRepo.findById(greenHouse.getLanding().getId()).get();
         Indication indicationFromDb = indicationRepo.findByGreenHouseId(indication.getGreenHouse().getId());
 
         updateIndication(indicationFromDb, indication);
-        return compareParam(landing, indication, MicroChip.getResponseMicroChip());
+        //return compareParam(landing, indication, new MicroChip());
+        return null;
     }
 
     private MicroChip compareParam(Landing landing, Indication indication, MicroChip microChip) {
@@ -60,13 +61,11 @@ public class MicroChipService {
     }
 
     public HttpStatus create(Integer id) {
-        GreenHouse greenHouse = new GreenHouse();
-        greenHouse.setStatus(StatusGHouse.EMPTY.toString());
-        greenHouse.setId(id);
+        GreenHouse greenHouse = greenHouseRepo.save(new GreenHouse(id, StatusGHouse.EMPTY.toString()));
+        Indication indication = indicationRepo.save(new Indication(greenHouse));
+        greenHouse.setIndication(indication);
         greenHouseRepo.save(greenHouse);
-        Indication indication = new Indication();
-        indication.setGreenHouse(greenHouse);
-        indicationRepo.save(indication);
+
         return HttpStatus.OK;
     }
 }

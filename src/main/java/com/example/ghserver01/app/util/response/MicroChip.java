@@ -19,9 +19,6 @@ public class MicroChip {
     private boolean light;
     private boolean watering;
 
-    public static MicroChip getResponseMicroChip(){
-        return new MicroChip();
-    }
 }
 
 

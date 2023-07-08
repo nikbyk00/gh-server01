@@ -39,9 +39,4 @@ public class RoomService {
         return spaceFromDb.getRoomList();
     }
 
-    public HttpStatus deleteRoom(Room room) {
-        roomRepo.delete(roomRepo.findById(room.getId()).get());
-        return HttpStatus.OK;
-    }
-
 }

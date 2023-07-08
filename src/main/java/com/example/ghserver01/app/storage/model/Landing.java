@@ -1,6 +1,7 @@
 package com.example.ghserver01.app.storage.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -18,7 +19,8 @@ public class Landing {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
-    @OneToOne(fetch = FetchType.EAGER)
+
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "green_house_id")
     private GreenHouse greenHouse;
     @JsonFormat(pattern="yyyy-MM-dd")

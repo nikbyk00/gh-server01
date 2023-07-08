@@ -1,10 +1,7 @@
 package com.example.ghserver01.app.service;
 
 import com.example.ghserver01.app.repositoryCrud.*;
-import com.example.ghserver01.app.storage.model.GreenHouse;
-import com.example.ghserver01.app.storage.model.Indication;
-import com.example.ghserver01.app.storage.model.Landing;
-import com.example.ghserver01.app.storage.model.Template;
+import com.example.ghserver01.app.storage.model.*;
 import com.example.ghserver01.app.util.Exception.BusinessException;
 import com.example.ghserver01.app.util.Helper.LandingHelper;
 import com.example.ghserver01.app.util.Value.Constants;
@@ -14,7 +11,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -24,6 +23,8 @@ public class LandingService {
     private GreenHouseRepo greenHouseRepo;
     private LandingHelper landingHelper;
     private IndicationRepo indicationRepo;
+    private FullLandingInfo fullLandingInfo;
+    private final RoomRepo roomRepo;
 
     public List<Landing> getHistoryLanding(Integer roomId)  {
       // List<GreenHouse> gHouseFromDb = greenHouseRepo.findByRoomId(roomId);
@@ -40,8 +41,25 @@ public class LandingService {
 
         if (isNew) {
             landingRepo.save(landing);
-            updateStatusGreenHouse(landing);
-            updateGreenHouseId(landing);
+            updateGreenHouse(landing);
+
+            List<GreenHouse> greenHouseListFilter = new ArrayList<>();
+            Integer ghId = landing.getGreenHouse().getId();
+            List<Room> room = roomRepo.findAll();
+
+            for (int i = 0; i < room.size(); i++) {
+                Room roomIter = room.get(i);
+                List<GreenHouse> greenHouseList = roomIter.getGreenHouseList();
+                greenHouseListFilter = greenHouseList.stream().
+                        filter(greenHouse -> greenHouse.getId() == ghId).
+                        collect(Collectors.toList());
+
+                if (!greenHouseListFilter.isEmpty()) {
+                    Room roomFromDb = roomRepo.findById(roomIter.getId()).get();
+                    roomFromDb.getLandingList().add(landing);
+                    roomRepo.save(roomFromDb);
+                }
+            }
 
             if (creatingTemplate) {
                 Template template = new Template();
@@ -54,28 +72,21 @@ public class LandingService {
         Landing landingFromDb = landingRepo.findById(landing.getId()).get();
         landingRepo.save(landingHelper.updateLanding(landingFromDb, landing));
 
-        updateGreenHouseId(landingFromDb);
+        updateGreenHouse(landingFromDb);
 
         return HttpStatus.OK;
     }
 
-    private void updateStatusGreenHouse(Landing landing) {
-        greenHouseRepo.findById(landing.getGreenHouse().getId()).get().setStatus(StatusGHouse.LANDING.toString());
+    private void updateGreenHouse(Landing landing) {
+        GreenHouse greenHouse = greenHouseRepo.findById(landing.getGreenHouse().getId()).get();
+        greenHouse.setStatus(StatusGHouse.LANDING.toString());
+        greenHouse.setLanding(landing);
+        greenHouseRepo.save(greenHouse);
     }
 
-    private void updateGreenHouseId(Landing landing) {
-        GreenHouse greenHouseFromDb = greenHouseRepo.findById(landing.getGreenHouse().getId()).get();
-        greenHouseFromDb.setLanding(landing);
-        greenHouseRepo.save(greenHouseFromDb);
-    }
-
-    public FullLandingInfo getLanding(Integer greenHouseId) {
+    public GreenHouse getLanding(Integer greenHouseId) {
         GreenHouse greenHouse = greenHouseRepo.findById(greenHouseId).get();
-        Landing landingFromDb = landingRepo.findById(greenHouse.getLanding().getId()).get();
-        String greenHouseName = greenHouseRepo.findById(greenHouseId).get().getName();
-        Indication indication = indicationRepo.findByGreenHouseId(greenHouseId);
-
-        return FullLandingInfo.createFullLandingInfo(landingFromDb, greenHouseName,indication);
+        return greenHouse;
     }
 
     public HttpStatus deleteLanding(Landing landing) {

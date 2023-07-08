@@ -17,29 +17,24 @@ import java.util.List;
 @AllArgsConstructor
 public class SpaceService {
     private SpaceRepo spaceRepo;
-    private UserRepo userRepo;
 
-    public HttpStatus createSpace(Space space, Integer userId, Boolean isNew) {
+    public HttpStatus createSpace(Space space, Boolean isNew) {
 
         if (isNew) {
             spaceRepo.save(space);
-           // Space spaceFromDb = spaceRepo.fi
-            User userFromDb = userRepo.findById(userId).get();
-           // userFromDb.getSpaceList().add(space);
-            userRepo.save(userFromDb);
-
             return HttpStatus.OK;
         }
 
         Space spaceFromDb = spaceRepo.findById(space.getId()).get();
-        updateFieldsRoom(spaceFromDb, space);
+        updateFieldsSpace(spaceFromDb, space);
 
         return HttpStatus.OK;
     }
 
     public List<Space> getSpace(Integer userId) {
-        User userFromDb = userRepo.findById(userId).get();
-        return null;
+
+        return spaceRepo.findByUserId(userId);
+
     }
 
     public HttpStatus deleteSpace(Integer spaceId) {
@@ -47,7 +42,7 @@ public class SpaceService {
         return HttpStatus.OK;
     }
 
-    private void updateFieldsRoom(Space spaceFromDb, Space newSpace) {
+    private void updateFieldsSpace(Space spaceFromDb, Space newSpace) {
         spaceFromDb.setColor(newSpace.getColor());
         spaceFromDb.setName(newSpace.getName());
         spaceRepo.save(spaceFromDb);

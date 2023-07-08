@@ -1,6 +1,7 @@
 package com.example.ghserver01.app.controller;
 
 import com.example.ghserver01.app.service.LandingService;
+import com.example.ghserver01.app.storage.model.GreenHouse;
 import com.example.ghserver01.app.storage.model.Landing;
 import com.example.ghserver01.app.util.response.FullLandingInfo;
 import lombok.AllArgsConstructor;
@@ -23,7 +24,7 @@ public class landingController {
     }
 
     @GetMapping("/getLanding")
-    public FullLandingInfo getLanding(@RequestParam Integer greenHouseId) {
+    public GreenHouse getLanding(@RequestParam Integer greenHouseId) {
         return landingService.getLanding(greenHouseId);
     }
 

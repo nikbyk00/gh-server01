@@ -22,13 +22,14 @@ public class GreenHouseController {
         return greenHouseService.createGHouse(greenHouse, roomId);
     }
 
-    @GetMapping("'/get")
+    @GetMapping("/get")
     public List<GreenHouse> getListGHouse(@RequestParam Integer roomId) {
         return greenHouseService.getListGHouse(roomId);
     }
 
-    @DeleteMapping("/delete")
-    public HttpStatus deleteGHouse(@RequestBody GreenHouse greenHouse) {
-        return greenHouseService.deleteGHouse(greenHouse);
+    @GetMapping("/getStatus")
+    public List<GreenHouse> getStatus(@RequestParam Integer userId) {
+        return greenHouseService.getStatusGHouse(userId);
     }
+
 }

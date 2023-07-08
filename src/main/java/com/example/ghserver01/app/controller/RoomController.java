@@ -27,8 +27,4 @@ public class RoomController {
         return roomService.getRoom(spaceId);
     }
 
-    @DeleteMapping("/delete")
-    public HttpStatus deleteSpace(@RequestBody Room room) {
-        return roomService.deleteRoom(room);
-    }
 }

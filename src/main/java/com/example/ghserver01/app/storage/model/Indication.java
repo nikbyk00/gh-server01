@@ -1,18 +1,24 @@
 package com.example.ghserver01.app.storage.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Indication {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @OneToOne
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "green_house_id")
     private GreenHouse greenHouse;
     @JsonFormat(pattern="yyyy-MM-dd")
@@ -23,4 +29,27 @@ public class Indication {
     private Double co2;
     private Double ph;
 
+    public Indication(GreenHouse greenHouse) {
+        this.greenHouse = greenHouse;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Indication that = (Indication) o;
+        return id.equals(that.id) &&
+                greenHouse.equals(that.greenHouse) &&
+                time.equals(that.time) &&
+                temperature1.equals(that.temperature1) &&
+                temperature2.equals(that.temperature2) &&
+                ec.equals(that.ec) &&
+                co2.equals(that.co2) &&
+                ph.equals(that.ph);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, greenHouse, time, temperature1, temperature2, ec, co2, ph);
+    }
 }

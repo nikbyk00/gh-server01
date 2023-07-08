@@ -19,9 +19,8 @@ public class SpaceController {
 
     @PostMapping(value = "/create")
     public HttpStatus createSpace(@RequestBody Space space,
-                                  @RequestParam Integer userId,
                                   @RequestParam Boolean isNew) {
-        return spaceService.createSpace(space, userId, isNew);
+        return spaceService.createSpace(space, isNew);
     }
 
     @GetMapping("/getSpace")

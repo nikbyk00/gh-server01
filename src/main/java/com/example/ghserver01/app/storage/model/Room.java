@@ -1,5 +1,6 @@
 package com.example.ghserver01.app.storage.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -17,9 +18,11 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<GreenHouse> greenHouseList;
-    @OneToMany(cascade = CascadeType.ALL)
+    //@JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Landing> landingList;
 
 

@@ -1,5 +1,6 @@
 package com.example.ghserver01.app.storage.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -16,12 +17,20 @@ public class GreenHouse {
     private Integer id;
     private String name;
     private String status;
+
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "landing_id")
     private Landing landing;
-    @OneToOne
+
+    //@JsonIgnore
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "indication_id")
     private Indication indication;
+
+    public GreenHouse(Integer id, String status){
+        this.id = id;
+        this.status = status;
+    }
 
     @Override
     public boolean equals(Object o) {
