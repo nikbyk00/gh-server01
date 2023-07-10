@@ -1,5 +1,7 @@
 package com.example.ghserver01.app.storage.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -19,6 +21,13 @@ public class User {
     private String username;
     private String password;
     private String email;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Space> space;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Template template;
     private boolean activate = false;
     private String theme = "white";
     private String lang = "Russian";

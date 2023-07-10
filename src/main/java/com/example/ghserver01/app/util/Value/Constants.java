@@ -8,6 +8,7 @@ public class Constants {
     public static final String SPACE_NOT_FOUND = "помещений не найдено";
     public static final String ROOM_NOT_FOUND = "комнат не найдена";
     public static final String GREEN_HOUSE_NOT_FOUND = "теплиц не найдена";
+    public static final String GREEN_HOUSE_ALREADY_EXISTS = "теплиц c данным id уже существует";
     public static final String LANDING_NOT_FOUND = "посадок не найдено";
     public static final String USER_ALREADY_EXISTS = "пользователь уже существует";
     public static final String USER_IS_NOT_FOUND = "пользователь не найден";

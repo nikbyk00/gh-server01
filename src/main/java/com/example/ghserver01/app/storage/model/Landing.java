@@ -1,5 +1,6 @@
 package com.example.ghserver01.app.storage.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -20,6 +21,10 @@ public class Landing {
     private Integer id;
     private String name;
 
+    @ManyToOne
+    @JsonIgnore
+    private Room room;
+    @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "green_house_id")
     private GreenHouse greenHouse;

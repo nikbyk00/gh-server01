@@ -6,6 +6,8 @@ import com.example.ghserver01.app.repositoryCrud.LandingRepo;
 import com.example.ghserver01.app.storage.model.GreenHouse;
 import com.example.ghserver01.app.storage.model.Indication;
 import com.example.ghserver01.app.storage.model.Landing;
+import com.example.ghserver01.app.util.Exception.BusinessException;
+import com.example.ghserver01.app.util.Value.Constants;
 import com.example.ghserver01.app.util.Value.StatusGHouse;
 import com.example.ghserver01.app.util.response.MicroChip;
 import lombok.AllArgsConstructor;
@@ -60,7 +62,12 @@ public class MicroChipService {
         indicationRepo.save(oldIndication);
     }
 
-    public HttpStatus create(Integer id) {
+    public HttpStatus create(Integer id) throws BusinessException {
+
+        if (!greenHouseRepo.findById(id).isEmpty()){
+            throw new BusinessException(Constants.GREEN_HOUSE_ALREADY_EXISTS);
+        }
+
         GreenHouse greenHouse = greenHouseRepo.save(new GreenHouse(id, StatusGHouse.EMPTY.toString()));
         Indication indication = indicationRepo.save(new Indication(greenHouse));
         greenHouse.setIndication(indication);

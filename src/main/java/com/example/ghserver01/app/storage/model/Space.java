@@ -1,6 +1,8 @@
 package com.example.ghserver01.app.storage.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -20,13 +22,20 @@ public class Space {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
-    @JsonIgnore
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Room> roomList;
 
     @ManyToOne
+    @JsonIgnore
     private User user;
     private String color;
+
+    public Space(String name, String color, User user) {
+        this.name = name;
+        this.color = color;
+        this.user = user;
+    }
 
     @Override
     public boolean equals(Object o) {

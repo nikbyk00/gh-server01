@@ -28,7 +28,7 @@ public class GreenHouseController {
     }
 
     @GetMapping("/getStatus")
-    public List<GreenHouse> getStatus(@RequestParam Integer userId) {
+    public List<List<GreenHouse>> getStatus(@RequestParam Integer userId) {
         return greenHouseService.getStatusGHouse(userId);
     }
 

@@ -3,6 +3,7 @@ package com.example.ghserver01.app.service;
 import com.example.ghserver01.app.repositoryCrud.GreenHouseRepo;
 import com.example.ghserver01.app.repositoryCrud.RoomRepo;
 import com.example.ghserver01.app.repositoryCrud.SpaceRepo;
+import com.example.ghserver01.app.repositoryCrud.UserRepo;
 import com.example.ghserver01.app.storage.model.GreenHouse;
 import com.example.ghserver01.app.storage.model.Room;
 import com.example.ghserver01.app.storage.model.Space;
@@ -20,6 +21,7 @@ public class GreenHouseService {
     private GreenHouseRepo greenHouseRepo;
     private final RoomRepo roomRepo;
     private final SpaceRepo spaceRepo;
+    private final UserRepo userRepo;
 
     public HttpStatus createGHouse(GreenHouse greenHouse, Integer roomId) {
         GreenHouse greenHouseFromDb = greenHouseRepo.findById(greenHouse.getId()).get();
@@ -44,10 +46,10 @@ public class GreenHouseService {
         greenHouseRepo.save(greenHouseFromDb);
     }
 
-    public List<GreenHouse> getStatusGHouse(Integer userId) { //todo
+    public List<List<GreenHouse>> getStatusGHouse(Integer userId) { //todo
 
-        List<Space> spaceFromDb = spaceRepo.findByUserId(userId);
-        List<GreenHouse> greenHouseList = new ArrayList<>();
+        List<Space> spaceFromDb = userRepo.findById(userId).get().getSpace();
+        List<List<GreenHouse>> greenHouseList = new ArrayList<>();
 
 
         for (int i = 0; i < spaceFromDb.size(); i++) {
@@ -55,7 +57,7 @@ public class GreenHouseService {
             List<Room> roomList = space.getRoomList();
             for (int j = 0; j < roomList.size(); j++) {
                 Room room = roomList.get(j);
-                greenHouseList = room.getGreenHouseList();
+                greenHouseList.add(room.getGreenHouseList());
             }
         }
 

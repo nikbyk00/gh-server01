@@ -1,6 +1,8 @@
 package com.example.ghserver01.app.storage.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -19,10 +21,16 @@ public class Room {
     private Integer id;
     private String name;
 
+    @ManyToOne
+    @JsonIgnore
+    private Space space;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<GreenHouse> greenHouseList;
-    //@JsonIgnore
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Landing> landingList;
 
 

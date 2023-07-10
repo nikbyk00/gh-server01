@@ -17,11 +17,16 @@ import java.util.List;
 @AllArgsConstructor
 public class SpaceService {
     private SpaceRepo spaceRepo;
+    private final UserRepo userRepo;
 
-    public HttpStatus createSpace(Space space, Boolean isNew) {
+    public HttpStatus createSpace(Space space, Boolean isNew, Integer userId) {
 
         if (isNew) {
             spaceRepo.save(space);
+            User user = userRepo.findById(userId).get();
+            user.getSpace().add(space);
+            userRepo.save(user);
+
             return HttpStatus.OK;
         }
 
@@ -32,7 +37,7 @@ public class SpaceService {
     }
 
     public List<Space> getSpace(Integer userId) {
-        return spaceRepo.findByUserId(userId);
+        return userRepo.findById(userId).get().getSpace();
     }
 
     public HttpStatus deleteSpace(Integer spaceId) {
