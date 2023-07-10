@@ -23,7 +23,7 @@ public class Space {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Room> roomList;
-    @JsonIgnore
+
     @ManyToOne
     private User user;
     private String color;

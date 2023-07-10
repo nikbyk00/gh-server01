@@ -44,10 +44,11 @@ public class GreenHouseService {
         greenHouseRepo.save(greenHouseFromDb);
     }
 
-    public List<GreenHouse> getStatusGHouse(Integer userId) {
+    public List<GreenHouse> getStatusGHouse(Integer userId) { //todo
 
         List<Space> spaceFromDb = spaceRepo.findByUserId(userId);
         List<GreenHouse> greenHouseList = new ArrayList<>();
+
 
         for (int i = 0; i < spaceFromDb.size(); i++) {
             Space space = spaceFromDb.get(i);

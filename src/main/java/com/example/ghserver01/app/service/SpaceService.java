@@ -32,9 +32,7 @@ public class SpaceService {
     }
 
     public List<Space> getSpace(Integer userId) {
-
         return spaceRepo.findByUserId(userId);
-
     }
 
     public HttpStatus deleteSpace(Integer spaceId) {

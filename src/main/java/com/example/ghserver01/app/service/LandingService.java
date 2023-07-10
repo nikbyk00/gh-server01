@@ -22,19 +22,12 @@ public class LandingService {
     private TemplateRepo templateRepo;
     private GreenHouseRepo greenHouseRepo;
     private LandingHelper landingHelper;
-    private IndicationRepo indicationRepo;
+
     private FullLandingInfo fullLandingInfo;
     private final RoomRepo roomRepo;
 
     public List<Landing> getHistoryLanding(Integer roomId)  {
-      // List<GreenHouse> gHouseFromDb = greenHouseRepo.findByRoomId(roomId);
-//       List <Landing> landing =
-//               gHouseFromDb.
-//               stream().
-//               peek(s -> landingRepo.findByGreenHouseId(s.getId())).
-//               collect(Collectors.toList());
-
-        return null;
+        return roomRepo.findById(roomId).get().getLandingList();
     }
 
     public HttpStatus createLanding(Landing landing, Boolean isNew, Boolean creatingTemplate) {
@@ -43,7 +36,7 @@ public class LandingService {
             landingRepo.save(landing);
             updateGreenHouse(landing);
 
-            List<GreenHouse> greenHouseListFilter = new ArrayList<>();
+            List<GreenHouse> greenHouseListFilter;
             Integer ghId = landing.getGreenHouse().getId();
             List<Room> room = roomRepo.findAll();
 
