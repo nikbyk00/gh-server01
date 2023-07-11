@@ -18,9 +18,8 @@ public class Indication {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @ManyToOne
     @JsonIgnore
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "green_house_id")
     private GreenHouse greenHouse;
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate time;

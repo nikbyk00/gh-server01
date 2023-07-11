@@ -15,16 +15,21 @@ import java.util.List;
 public class RoomController {
     private RoomService roomService;
 
-    @PostMapping("/create")
-    public HttpStatus createRoom(@RequestBody Room room,
+    @PostMapping(value = "/create")
+    public HttpStatus create(@RequestBody Room room,
                                  @RequestParam Integer spaceId,
                                  @RequestParam Boolean isNew) {
         return roomService.createRoom(room, spaceId, isNew);
     }
 
-    @GetMapping("/getRoom")
-    public List<Room> getRoom(@RequestParam Integer spaceId){
+    @GetMapping(value = "/get")
+    public List<Room> get(@RequestParam Integer spaceId) {
         return roomService.getRoom(spaceId);
+    }
+
+    @DeleteMapping(value = "/delete")
+    public HttpStatus delete(@RequestParam Integer roomId) {
+        return roomService.deleteRoom(roomId);
     }
 
 }

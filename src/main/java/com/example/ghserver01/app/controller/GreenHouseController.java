@@ -17,13 +17,13 @@ public class GreenHouseController {
     private GreenHouseService greenHouseService;
 
     @PostMapping("/create")
-    public HttpStatus createGreenHouse(@RequestBody GreenHouse greenHouse,
+    public HttpStatus create(@RequestBody GreenHouse greenHouse,
                                        @RequestParam Integer roomId) {
         return greenHouseService.createGHouse(greenHouse, roomId);
     }
 
     @GetMapping("/get")
-    public List<GreenHouse> getListGHouse(@RequestParam Integer roomId) {
+    public List<GreenHouse> getList(@RequestParam Integer roomId) {
         return greenHouseService.getListGHouse(roomId);
     }
 

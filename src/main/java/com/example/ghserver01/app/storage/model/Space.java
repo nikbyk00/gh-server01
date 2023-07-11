@@ -16,7 +16,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 public class Space {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,6 +35,17 @@ public class Space {
         this.name = name;
         this.color = color;
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "Space{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", roomList=" + roomList +
+                ", user=" + user +
+                ", color='" + color + '\'' +
+                '}';
     }
 
     @Override

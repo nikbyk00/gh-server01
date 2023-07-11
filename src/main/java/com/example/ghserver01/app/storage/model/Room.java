@@ -33,6 +33,21 @@ public class Room {
     @JsonIgnore
     private List<Landing> landingList;
 
+    public Room(String name, Space space) {
+        this.name = name;
+        this.space = space;
+    }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", space=" + space +
+                ", greenHouseList=" + greenHouseList +
+                ", landingList=" + landingList +
+                '}';
+    }
 
     @Override
     public boolean equals(Object o) {

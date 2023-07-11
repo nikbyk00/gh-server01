@@ -41,11 +41,6 @@ public class GreenHouseService {
         return room.getGreenHouseList();
     }
 
-    private void updateGreenHouseFields(GreenHouse greenHouseFromDb, GreenHouse newGreenHouse) {
-        greenHouseFromDb.setName(newGreenHouse.getName());
-        greenHouseRepo.save(greenHouseFromDb);
-    }
-
     public List<List<GreenHouse>> getStatusGHouse(Integer userId) { //todo
 
         List<Space> spaceFromDb = userRepo.findById(userId).get().getSpace();
@@ -63,5 +58,10 @@ public class GreenHouseService {
 
         return greenHouseList;
 
+    }
+
+    private void updateGreenHouseFields(GreenHouse greenHouseFromDb, GreenHouse newGreenHouse) {
+        greenHouseFromDb.setName(newGreenHouse.getName());
+        greenHouseRepo.save(greenHouseFromDb);
     }
 }

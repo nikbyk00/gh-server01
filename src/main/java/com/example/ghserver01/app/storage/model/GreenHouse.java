@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -19,6 +20,9 @@ public class GreenHouse {
     private String name;
     private String status;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Indication> indication;
+
     @ManyToOne
     @JsonIgnore
     private Room room;
@@ -26,10 +30,6 @@ public class GreenHouse {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "landing_id")
     private Landing landing;
-
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "indication_id")
-    private Indication indication;
 
     public GreenHouse(Integer id, String status){
         this.id = id;

@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -22,9 +23,9 @@ public class SpaceService {
     public HttpStatus createSpace(Space space, Boolean isNew, Integer userId) {
 
         if (isNew) {
-            spaceRepo.save(space);
             User user = userRepo.findById(userId).get();
-            user.getSpace().add(space);
+            Space spaceFromDb = spaceRepo.save(new Space(space.getName(), space.getColor(), user));
+            user.getSpace().add(spaceFromDb);
             userRepo.save(user);
 
             return HttpStatus.OK;
@@ -41,7 +42,18 @@ public class SpaceService {
     }
 
     public HttpStatus deleteSpace(Integer spaceId) {
-        spaceRepo.delete(spaceRepo.findById(spaceId).get());
+        Space spaceFromDb = spaceRepo.findById(spaceId).get();
+        User userFromDb = userRepo.findById(spaceFromDb.getUser().getId()).get();
+
+        List<Space> updatedList = userFromDb.getSpace().
+                stream().
+                filter(space -> !space.getId().equals(spaceId)).
+                collect(Collectors.toList());
+
+        userFromDb.setSpace(updatedList);
+        userRepo.save(userFromDb);
+        spaceRepo.delete(spaceFromDb); //save??
+
         return HttpStatus.OK;
     }
 

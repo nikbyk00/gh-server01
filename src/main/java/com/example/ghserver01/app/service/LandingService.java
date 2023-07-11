@@ -35,23 +35,7 @@ public class LandingService {
         if (isNew) {
             landingRepo.save(landing);
             updateGreenHouse(landing, greenHouseId);
-
-            List<GreenHouse> greenHouseListFilter;
-            List<Room> room = roomRepo.findAll();
-
-            for (int i = 0; i < room.size(); i++) {
-                Room roomIter = room.get(i);
-                List<GreenHouse> greenHouseList = roomIter.getGreenHouseList();
-                greenHouseListFilter = greenHouseList.stream().
-                        filter(greenHouse -> greenHouse.getId() == greenHouseId).
-                        collect(Collectors.toList());
-
-                if (!greenHouseListFilter.isEmpty()) {
-                    Room roomFromDb = roomRepo.findById(roomIter.getId()).get();
-                    roomFromDb.getLandingList().add(landing);
-                    roomRepo.save(roomFromDb);
-                }
-            }
+            updateRoomList(greenHouseId, landing);
 
             if (creatingTemplate) {
                 Template template = new Template();
@@ -69,13 +53,6 @@ public class LandingService {
         return HttpStatus.OK;
     }
 
-    private void updateGreenHouse(Landing landing, Integer greenHouseId) {
-        GreenHouse greenHouse = greenHouseRepo.findById(greenHouseId).get();
-        greenHouse.setStatus(StatusGHouse.LANDING.toString());
-        greenHouse.setLanding(landing);
-        greenHouseRepo.save(greenHouse);
-    }
-
     public GreenHouse getLanding(Integer greenHouseId) {
         GreenHouse greenHouse = greenHouseRepo.findById(greenHouseId).get();
         return greenHouse;
@@ -84,5 +61,31 @@ public class LandingService {
     public HttpStatus deleteLanding(Landing landing) {
         landingRepo.delete(landingRepo.findById(landing.getId()).get());
         return HttpStatus.OK;
+    }
+
+    private void updateGreenHouse(Landing landing, Integer greenHouseId) {
+        GreenHouse greenHouse = greenHouseRepo.findById(greenHouseId).get();
+        greenHouse.setStatus(StatusGHouse.LANDING.toString());
+        greenHouse.setLanding(landing);
+        greenHouseRepo.save(greenHouse);
+    }
+
+    private void updateRoomList (Integer greenHouseId, Landing landing){
+        List<Room> room = roomRepo.findAll();
+        List<GreenHouse> greenHouseListFilter;
+
+        for (int i = 0; i < room.size(); i++) {
+            Room roomIter = room.get(i);
+            List<GreenHouse> greenHouseList = roomIter.getGreenHouseList();
+            greenHouseListFilter = greenHouseList.stream().
+                    filter(greenHouse -> greenHouse.getId() == greenHouseId).
+                    collect(Collectors.toList());
+
+            if (!greenHouseListFilter.isEmpty()) {
+                Room roomFromDb = roomRepo.findById(roomIter.getId()).get();
+                roomFromDb.getLandingList().add(landing);
+                roomRepo.save(roomFromDb);
+            }
+        }
     }
 }

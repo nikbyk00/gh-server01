@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -19,10 +20,10 @@ public class RoomService {
     public HttpStatus createRoom(Room room, Integer spaceId, Boolean isNew) {
 
         if (isNew) {
-            roomRepo.save(room);
-            Space spaceFromDb = spaceRepo.findById(spaceId).get();
-            spaceFromDb.getRoomList().add(room);
-            spaceRepo.save(spaceFromDb);
+            Space space = spaceRepo.findById(spaceId).get();
+            Room roomFromDb = roomRepo.save(new Room(room.getName(), space));
+            space.getRoomList().add(roomFromDb);
+            spaceRepo.save(space);
 
             return HttpStatus.OK;
         }
@@ -35,8 +36,21 @@ public class RoomService {
     }
 
     public List<Room> getRoom(Integer spaceId) {
-        Space spaceFromDb = spaceRepo.findById(spaceId).get();
-        return spaceFromDb.getRoomList();
+         return spaceRepo.findById(spaceId).get().getRoomList();
     }
 
+    public HttpStatus deleteRoom(Integer roomId) {
+        Room roomFromDb = roomRepo.findById(roomId).get();
+        Space spaceFromDb = spaceRepo.findById(roomFromDb.getSpace().getId()).get();
+        List<Room> updatedListRoom = spaceFromDb.getRoomList().
+                stream().
+                filter(room -> !room.getId().equals(roomId)).
+                collect(Collectors.toList());
+
+        spaceFromDb.setRoomList(updatedListRoom);
+        spaceRepo.save(spaceFromDb);
+        roomRepo.delete(roomFromDb); //save??
+
+        return HttpStatus.OK;
+    }
 }

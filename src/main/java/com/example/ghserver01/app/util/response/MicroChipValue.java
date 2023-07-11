@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 @Getter
 @Setter
-public class MicroChip {
+public class MicroChipValue {
     private boolean heat;
     private boolean vent;
     private boolean pH;

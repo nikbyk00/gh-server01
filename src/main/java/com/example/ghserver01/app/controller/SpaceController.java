@@ -18,18 +18,18 @@ public class SpaceController {
     private SpaceService spaceService;
 
     @PostMapping(value = "/create")
-    public HttpStatus createSpace(@RequestBody Space space,
+    public HttpStatus create(@RequestBody Space space,
                                   @RequestParam Boolean isNew, @RequestParam Integer userId) {
         return spaceService.createSpace(space, isNew, userId);
     }
 
-    @GetMapping("/getSpace")
-    public List<Space> getSpace(@RequestParam Integer userId) {
+    @GetMapping(value = "/get")
+    public List<Space> get(@RequestParam Integer userId) {
         return spaceService.getSpace(userId);
     }
 
-    @DeleteMapping("/delete")
-    public HttpStatus deleteSpace(@RequestParam Integer spaceId) {
+    @DeleteMapping(value = "/delete")
+    public HttpStatus delete(@RequestParam Integer spaceId) {
         return spaceService.deleteSpace(spaceId);
     }
 
